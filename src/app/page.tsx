@@ -15,8 +15,10 @@ async function getOverview() {
   const [
     coursesCount,
     curatedCount,
+    coursesWithVideosCount,
     channelsCount,
     videosCount,
+    extractedCount,
     videoCoursesCount,
     reviewQueueCount,
     captionsCount,
@@ -26,8 +28,15 @@ async function getOverview() {
       .select({ count: sql<number>`count(*)::int` })
       .from(courses)
       .where(eq(courses.isCurated, true)),
+    db
+      .select({ count: sql<number>`count(distinct course_id)::int` })
+      .from(videoCourses),
     db.select({ count: sql<number>`count(*)::int` }).from(channels),
     db.select({ count: sql<number>`count(*)::int` }).from(videos),
+    db
+      .select({ count: sql<number>`count(*)::int` })
+      .from(videos)
+      .where(sql`extracted_at IS NOT NULL`),
     db.select({ count: sql<number>`count(*)::int` }).from(videoCourses),
     db.select({ count: sql<number>`count(*)::int` }).from(extractionReviewQueue),
     db
@@ -74,8 +83,10 @@ async function getOverview() {
     counts: {
       courses: coursesCount[0]?.count ?? 0,
       curated: curatedCount[0]?.count ?? 0,
+      coursesWithVideos: coursesWithVideosCount[0]?.count ?? 0,
       channels: channelsCount[0]?.count ?? 0,
       videos: videosCount[0]?.count ?? 0,
+      extracted: extractedCount[0]?.count ?? 0,
       videoCourses: videoCoursesCount[0]?.count ?? 0,
       reviewQueue: reviewQueueCount[0]?.count ?? 0,
       captions: captionsCount[0]?.count ?? 0,
@@ -107,14 +118,16 @@ function formatDate(d: Date | string | null): string {
 export default async function Home() {
   const { counts, featured, channels: channelList, recent } = await getOverview();
 
-  const rows: { label: string; value: number }[] = [
-    { label: "Courses (total)", value: counts.courses },
+  const rows: { label: string; value: number; emphasis?: boolean }[] = [
+    { label: "Courses with videos indexed", value: counts.coursesWithVideos, emphasis: true },
+    { label: "Video↔Course links", value: counts.videoCourses },
+    { label: "Videos extracted", value: counts.extracted },
+    { label: "Videos with captions", value: counts.captions },
+    { label: "Pending review queue", value: counts.reviewQueue },
     { label: "Courses (curated)", value: counts.curated },
+    { label: "Courses (total)", value: counts.courses },
     { label: "Channels", value: counts.channels },
     { label: "Videos", value: counts.videos },
-    { label: "Videos with captions", value: counts.captions },
-    { label: "Video↔Course links", value: counts.videoCourses },
-    { label: "Pending review queue", value: counts.reviewQueue },
   ];
 
   return (
@@ -143,10 +156,24 @@ export default async function Home() {
               {rows.map((row) => (
                 <li
                   key={row.label}
-                  className="flex items-center justify-between px-5 py-3 text-sm"
+                  className={`flex items-center justify-between px-5 ${row.emphasis ? "py-4" : "py-3"} text-sm`}
                 >
-                  <span className="text-zinc-700 dark:text-zinc-300">{row.label}</span>
-                  <span className="font-mono tabular-nums text-zinc-900 dark:text-zinc-50">
+                  <span
+                    className={
+                      row.emphasis
+                        ? "font-medium text-zinc-900 dark:text-zinc-50"
+                        : "text-zinc-700 dark:text-zinc-300"
+                    }
+                  >
+                    {row.label}
+                  </span>
+                  <span
+                    className={`font-mono tabular-nums ${
+                      row.emphasis
+                        ? "text-lg text-emerald-600 dark:text-emerald-400"
+                        : "text-zinc-900 dark:text-zinc-50"
+                    }`}
+                  >
                     {row.value.toLocaleString()}
                   </span>
                 </li>
