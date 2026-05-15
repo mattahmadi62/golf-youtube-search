@@ -19,6 +19,8 @@
   { "name": "East Lake Golf Club", "aliases": ["East Lake"], "slug": "east-lake-golf-club", "state": "GA" },
   { "name": "Cuscowilla Golf Club", "aliases": ["Cuscowilla"], "slug": "cuscowilla", "state": "GA" },
 
+  { "name": "Solina Golf Club", "aliases": ["Selena Golf Club", "Selena"], "slug": "solina-golf-club", "state": "SC" },
+
   { "name": "Pine Valley Golf Club", "aliases": ["Pine Valley"], "slug": "pine-valley-golf-club", "state": "NJ" },
   { "name": "Liberty National Golf Club", "aliases": ["Liberty National"], "slug": "liberty-national-golf-club", "state": "NJ" },
   { "name": "Trump National Golf Club Bedminster", "aliases": ["Trump Bedminster", "Bedminster"], "slug": "trump-national-bedminster", "state": "NJ" },
@@ -53,7 +55,7 @@
   { "name": "TPC Sawgrass Stadium Course", "aliases": ["TPC Sawgrass", "Sawgrass", "TPC Stadium"], "slug": "tpc-sawgrass-stadium-course", "state": "FL" },
   { "name": "Bay Hill Club and Lodge", "aliases": ["Bay Hill"], "slug": "bay-hill", "state": "FL" },
   { "name": "Innisbrook Copperhead Course", "aliases": ["Innisbrook", "Copperhead"], "slug": "innisbrook-copperhead", "state": "FL" },
-  { "name": "PGA National Champion Course", "aliases": ["PGA National", "Champion Course"], "slug": "pga-national-champion", "state": "FL" },
+  { "name": "PGA National Champion Course", "aliases": ["PGA National", "Champion Course", "PJ National"], "slug": "pga-national-champion", "state": "FL" },
   { "name": "Streamsong Resort", "aliases": ["Streamsong"], "slug": "streamsong-resort", "state": "FL" },
   { "name": "Streamsong Black", "aliases": ["Streamsong (Black)"], "slug": "streamsong-black", "state": "FL", "parent": "streamsong-resort" },
   { "name": "Streamsong Blue", "aliases": ["Streamsong (Blue)"], "slug": "streamsong-blue", "state": "FL", "parent": "streamsong-resort" },
@@ -134,5 +136,20 @@
   { "name": "Troon North Golf Club", "aliases": ["Troon North"], "slug": "troon-north", "state": "AZ" },
   { "name": "True North Golf Course", "aliases": ["True North"], "slug": "true-north", "state": "AZ" },
   { "name": "The Boulders Resort", "aliases": ["The Boulders", "Arizona Boulders"], "slug": "boulders-resort", "state": "AZ" },
-  { "name": "Black Desert Resort", "aliases": ["Black Desert"], "slug": "black-desert-resort", "state": "UT" }
+  { "name": "Black Desert Resort", "aliases": ["Black Desert"], "slug": "black-desert-resort", "state": "UT" },
+
+  { "name": "Sunflower Hills Golf Course", "aliases": ["Sunflower Hills"], "slug": "sunflower-hills", "state": "KS" },
+  { "name": "Shadow Glen Golf Club", "aliases": ["Shadow Glen"], "slug": "shadow-glen", "state": "KS" },
+  { "name": "FarmLinks at Pursell Farms", "aliases": ["Pursell Farms", "Purcell Farms", "FarmLinks"], "slug": "pursell-farms", "state": "AL" },
+  { "name": "Coyote Ridge Golf Club", "aliases": ["Coyote Ridge"], "slug": "coyote-ridge", "state": "TX" },
+  { "name": "Cowboys Golf Club", "aliases": ["Cowboys"], "slug": "cowboys-golf-club", "state": "TX" },
+  { "name": "Gentle Creek Country Club", "aliases": ["Gentle Creek"], "slug": "gentle-creek", "state": "TX" },
+  { "name": "Twin Creeks Country Club", "aliases": ["Twin Creeks"], "slug": "twin-creeks", "state": "TX" },
+  { "name": "Bluejack National", "aliases": ["Bluejack National", "Blue Jack National", "BlueJack"], "slug": "bluejack-national", "state": "TX" },
+  { "name": "Thousand Hills Resort Golf Club", "aliases": ["Thousand Hills"], "slug": "thousand-hills", "state": "MO" },
+  { "name": "Orange County National", "aliases": ["Orange County National", "OCN"], "slug": "orange-county-national", "state": "FL" },
+  { "name": "Palm Beach National Golf Club", "aliases": ["Palm Beach National"], "slug": "palm-beach-national", "state": "FL" },
+  { "name": "BallenIsles Country Club", "aliases": ["BallenIsles", "Ballen Isles", "Balon Isles"], "slug": "ballenisles", "state": "FL" },
+  { "name": "Rotonda Golf and Country Club", "aliases": ["Rotonda", "Rotunda Golf and Country Club", "Rotonda Golf & Country Club"], "slug": "rotonda", "state": "FL" },
+  { "name": "Arroyo Trabuco Golf Club", "aliases": ["Arroyo Trabuco"], "slug": "arroyo-trabuco", "state": "CA" }
 ]
