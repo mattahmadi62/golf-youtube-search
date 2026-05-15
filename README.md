@@ -53,9 +53,16 @@ PLAN.md                  # Design + milestones
 ## Milestone status
 
 - [x] **M1** — Scaffold + Neon + Drizzle wired, hello-world page reads from DB
-- [ ] **M2** — Course catalog seeded (OSM import + curated list)
+- [x] **M2** — Course catalog seeded (~13k OSM + 100 curated), `/course/[slug]` live
 - [ ] **M3** — YouTube ingestion for one channel
 - [ ] **M4** — LLM extraction + review queue
 - [ ] **M5** — Search UI + course pages
 - [ ] **M6** — Backfill top 50 channels
 - [ ] **M7** — Polish + share
+
+## TODO before M3
+
+- Switch from `drizzle-kit push` to `generate` + `migrate` so schema changes
+  are version-controlled and Vercel deploys can run migrations.
+- Second-pass fuzzy match in `seed-curated` using `pg_trgm` similarity to
+  catch the ~33 curated entries that didn't exactly name-match OSM.
