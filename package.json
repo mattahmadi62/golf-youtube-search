@@ -14,7 +14,9 @@
     "db:studio": "dotenv -e .env.local -- drizzle-kit studio",
     "db:bootstrap": "dotenv -e .env.local -- tsx scripts/db-bootstrap.ts",
     "import:osm": "dotenv -e .env.local -- tsx scripts/import-osm.ts",
-    "seed:curated": "dotenv -e .env.local -- tsx scripts/seed-curated.ts"
+    "seed:curated": "dotenv -e .env.local -- tsx scripts/seed-curated.ts",
+    "ingest:videos": "dotenv -e .env.local -- tsx scripts/ingest-videos.ts",
+    "ingest:captions": "dotenv -e .env.local -- tsx scripts/ingest-captions.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
