@@ -119,5 +119,15 @@
 
   { "name": "Kapalua Plantation Course", "aliases": ["Kapalua", "Plantation Course"], "slug": "kapalua-plantation", "state": "HI" },
   { "name": "Princeville Makai Golf Club", "aliases": ["Princeville Makai", "Makai"], "slug": "princeville-makai", "state": "HI" },
-  { "name": "Mauna Lani South Course", "aliases": ["Mauna Lani"], "slug": "mauna-lani-south", "state": "HI" }
+  { "name": "Mauna Lani South Course", "aliases": ["Mauna Lani"], "slug": "mauna-lani-south", "state": "HI" },
+
+  { "name": "The Dye Preserve Golf Club", "aliases": ["Dye Preserve", "Die Preserve", "The Dye Preserve"], "slug": "dye-preserve", "state": "FL" },
+  { "name": "Trump National Doral", "aliases": ["Trump Doral", "Doral Blue Monster", "Blue Monster"], "slug": "trump-national-doral", "state": "FL" },
+  { "name": "Grande Dunes Resort Club", "aliases": ["Grande Dunes", "Grand Dunes", "Grand Dunes Myrtle Beach"], "slug": "grande-dunes", "state": "SC" },
+  { "name": "Full Cry at Keswick Hall", "aliases": ["Keswick Hall", "Keswick", "Kwick Hall"], "slug": "keswick-hall", "state": "VA" },
+  { "name": "Grand Geneva Resort", "aliases": ["Grand Geneva", "Grand Geneva Brute"], "slug": "grand-geneva", "state": "WI" },
+  { "name": "Troon North Golf Club", "aliases": ["Troon North"], "slug": "troon-north", "state": "AZ" },
+  { "name": "True North Golf Course", "aliases": ["True North"], "slug": "true-north", "state": "AZ" },
+  { "name": "The Boulders Resort", "aliases": ["The Boulders", "Arizona Boulders"], "slug": "boulders-resort", "state": "AZ" },
+  { "name": "Black Desert Resort", "aliases": ["Black Desert"], "slug": "black-desert-resort", "state": "UT" }
 ]
