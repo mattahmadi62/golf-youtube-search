@@ -17,7 +17,8 @@
     "seed:curated": "dotenv -e .env.local -o -- tsx scripts/seed-curated.ts",
     "ingest:videos": "dotenv -e .env.local -o -- tsx scripts/ingest-videos.ts",
     "ingest:captions": "dotenv -e .env.local -o -- tsx scripts/ingest-captions.ts",
-    "extract:courses": "dotenv -e .env.local -o -- tsx scripts/extract-courses.ts"
+    "extract:courses": "dotenv -e .env.local -o -- tsx scripts/extract-courses.ts",
+    "rematch:queue": "dotenv -e .env.local -o -- tsx scripts/rematch-queue.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.96.0",

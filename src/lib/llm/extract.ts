@@ -46,7 +46,9 @@ export class CourseExtractor {
     if (!process.env.ANTHROPIC_API_KEY) {
       throw new Error("ANTHROPIC_API_KEY is not set");
     }
-    this.client = new Anthropic();
+    // The free tier is 50 RPM; sustained batch runs need more retry headroom
+    // than the SDK's default (2) to ride out 429 bursts.
+    this.client = new Anthropic({ maxRetries: 8 });
   }
 
   async extract(input: {

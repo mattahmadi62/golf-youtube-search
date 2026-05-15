@@ -99,7 +99,7 @@
   { "name": "Bandon Dunes", "aliases": ["Bandon Dunes Course"], "slug": "bandon-dunes", "state": "OR" },
   { "name": "Pacific Dunes", "aliases": [], "slug": "pacific-dunes", "state": "OR" },
   { "name": "Bandon Trails", "aliases": [], "slug": "bandon-trails", "state": "OR" },
-  { "name": "Old Macdonald", "aliases": ["Old Mac"], "slug": "old-macdonald", "state": "OR" },
+  { "name": "Old Macdonald", "aliases": ["Old Mac", "Old McDonald"], "slug": "old-macdonald", "state": "OR" },
   { "name": "Sheep Ranch", "aliases": [], "slug": "sheep-ranch", "state": "OR" },
 
   { "name": "Payne's Valley Golf Course", "aliases": ["Paynes Valley"], "slug": "paynes-valley", "state": "MO" },
