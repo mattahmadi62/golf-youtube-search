@@ -1,4 +1,5 @@
 import {
+  type AnyPgColumn,
   bigint,
   boolean,
   index,
@@ -25,12 +26,17 @@ export const courses = pgTable(
     lng: numeric("lng", { precision: 9, scale: 6 }),
     osmId: bigint("osm_id", { mode: "number" }),
     isCurated: boolean("is_curated").notNull().default(false),
+    parentCourseId: uuid("parent_course_id").references(
+      (): AnyPgColumn => courses.id,
+      { onDelete: "set null" },
+    ),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [
     uniqueIndex("courses_slug_unique").on(t.slug),
     index("courses_name_idx").on(t.name),
     index("courses_curated_idx").on(t.isCurated),
+    index("courses_parent_idx").on(t.parentCourseId),
   ],
 );
 

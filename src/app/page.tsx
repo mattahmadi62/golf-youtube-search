@@ -1,4 +1,4 @@
-import { desc, eq, sql } from "drizzle-orm";
+import { and, desc, eq, isNull, sql } from "drizzle-orm";
 import Link from "next/link";
 import { db } from "@/db";
 import {
@@ -45,12 +45,14 @@ async function getOverview() {
       .where(sql`captions_text IS NOT NULL AND length(captions_text) > 0`),
   ]);
 
+  // Only show top-level courses and resorts in the featured list — never
+  // sub-courses like Pinehurst No. 2, which appear inside their resort page.
   const featured = await db
     .select({ slug: courses.slug, name: courses.name, state: courses.state })
     .from(courses)
-    .where(eq(courses.isCurated, true))
+    .where(and(eq(courses.isCurated, true), isNull(courses.parentCourseId)))
     .orderBy(courses.name)
-    .limit(8);
+    .limit(12);
 
   const channelRows = await db
     .select({

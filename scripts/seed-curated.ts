@@ -14,6 +14,7 @@ type CuratedEntry = {
   aliases: string[];
   slug: string;
   state: string | null;
+  parent?: string; // slug of the parent course (for multi-course resorts)
 };
 
 async function loadCurated(): Promise<CuratedEntry[]> {
@@ -38,6 +39,8 @@ async function main() {
   // Idempotency: drop pure-curated rows (no OSM backing) and un-mark any OSM
   // rows previously promoted to curated. The seed then re-applies cleanly.
   console.log("Resetting prior curated state...");
+  // Clear parent links first — they reference courses we may be about to delete.
+  await db.update(courses).set({ parentCourseId: null }).where(isNotNull(courses.parentCourseId));
   await db
     .delete(courses)
     .where(and(eq(courses.isCurated, true), isNull(courses.osmId)));
@@ -151,10 +154,55 @@ async function main() {
     .where(eq(courses.isCurated, true));
   console.log(`\nTotal curated rows now: ${totalCurated[0]?.count ?? 0}`);
 
+  // Wire parent_course_id for multi-course resorts (Bandon, Pinehurst, etc.).
+  await linkParents(db, entries);
+
   // Second pass: for curated rows that didn't match an OSM entry by exact name
   // (so osm_id is still null), try a pg_trgm similarity match in the same state.
   // High-confidence matches merge OSM geo data into the curated row.
   await fuzzyMatchPass(db);
+}
+
+async function linkParents(
+  db: ReturnType<typeof drizzle>,
+  entries: CuratedEntry[],
+) {
+  const children = entries.filter((e) => e.parent);
+  if (children.length === 0) return;
+
+  console.log(`\nLinking ${children.length} child courses to their resort parents...`);
+
+  // Load slug → id for every curated row referenced. One round trip.
+  const slugs = new Set<string>();
+  for (const c of children) {
+    slugs.add(c.slug);
+    slugs.add(c.parent!);
+  }
+  const rows = await db
+    .select({ id: courses.id, slug: courses.slug })
+    .from(courses)
+    .where(inArray(courses.slug, Array.from(slugs)));
+  const idBySlug = new Map(rows.map((r) => [r.slug, r.id]));
+
+  let linked = 0;
+  let missing = 0;
+  for (const child of children) {
+    const childId = idBySlug.get(child.slug);
+    const parentId = idBySlug.get(child.parent!);
+    if (!childId || !parentId) {
+      missing++;
+      console.log(
+        `  ? could not link "${child.name}" (slug=${child.slug}) → parent=${child.parent} (childId=${childId}, parentId=${parentId})`,
+      );
+      continue;
+    }
+    await db
+      .update(courses)
+      .set({ parentCourseId: parentId })
+      .where(eq(courses.id, childId));
+    linked++;
+  }
+  console.log(`  Linked ${linked} child→parent. Missing: ${missing}.`);
 }
 
 async function fuzzyMatchPass(db: ReturnType<typeof drizzle>) {

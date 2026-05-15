@@ -1,4 +1,4 @@
-import { desc, eq } from "drizzle-orm";
+import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { db } from "@/db";
@@ -33,6 +33,44 @@ export default async function CoursePage({ params }: PageProps) {
   const course = rows[0];
   if (!course) notFound();
 
+  // Parent (if this is a sub-course) and children (if this is a resort).
+  let parent: { name: string; slug: string } | null = null;
+  if (course.parentCourseId) {
+    const [p] = await db
+      .select({ name: courses.name, slug: courses.slug })
+      .from(courses)
+      .where(eq(courses.id, course.parentCourseId))
+      .limit(1);
+    parent = p ?? null;
+  }
+
+  const children = await db
+    .select({
+      id: courses.id,
+      name: courses.name,
+      slug: courses.slug,
+      videoCount: sql<number>`(SELECT count(*)::int FROM video_courses WHERE course_id = ${courses.id})`,
+    })
+    .from(courses)
+    .where(eq(courses.parentCourseId, course.id))
+    .orderBy(courses.name);
+
+  // Siblings — same parent, excluding self.
+  const siblings = course.parentCourseId
+    ? await db
+        .select({ name: courses.name, slug: courses.slug })
+        .from(courses)
+        .where(
+          and(
+            eq(courses.parentCourseId, course.parentCourseId),
+            sql`${courses.id} != ${course.id}`,
+          ),
+        )
+        .orderBy(courses.name)
+    : [];
+
+  // Aggregate videos across this course and any children (for resort pages).
+  const courseIds = [course.id, ...children.map((c) => c.id)];
   const indexed = await db
     .select({
       ytVideoId: videos.ytVideoId,
@@ -43,18 +81,22 @@ export default async function CoursePage({ params }: PageProps) {
       confidence: videoCourses.confidence,
       evidence: videoCourses.evidence,
       source: videoCourses.source,
+      matchedCourseName: courses.name,
+      matchedCourseSlug: courses.slug,
     })
     .from(videoCourses)
     .innerJoin(videos, eq(videos.id, videoCourses.videoId))
+    .innerJoin(courses, eq(courses.id, videoCourses.courseId))
     .leftJoin(channels, eq(channels.id, videos.channelId))
-    .where(eq(videoCourses.courseId, course.id))
+    .where(inArray(videoCourses.courseId, courseIds))
     .orderBy(desc(videos.publishedAt));
 
   const location = [course.state, course.country].filter(Boolean).join(", ");
+  const isResort = children.length > 0;
 
   return (
     <main className="min-h-dvh bg-zinc-50 dark:bg-black">
-      <div className="mx-auto max-w-3xl px-6 py-16">
+      <div className="mx-auto max-w-3xl px-6 py-12">
         <Link
           href="/"
           className="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-50"
@@ -62,8 +104,25 @@ export default async function CoursePage({ params }: PageProps) {
           ← Home
         </Link>
 
-        <div className="mt-8">
+        {parent && (
+          <p className="mt-6 text-xs text-zinc-500 dark:text-zinc-500">
+            Part of{" "}
+            <Link
+              href={`/course/${parent.slug}`}
+              className="font-medium text-emerald-600 hover:underline dark:text-emerald-400"
+            >
+              {parent.name}
+            </Link>
+          </p>
+        )}
+
+        <div className={parent ? "mt-2" : "mt-8"}>
           <div className="flex items-center gap-2">
+            {isResort && (
+              <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-950 dark:text-blue-300">
+                Resort · {children.length} courses
+              </span>
+            )}
             {course.isCurated && (
               <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">
                 Curated
@@ -88,6 +147,49 @@ export default async function CoursePage({ params }: PageProps) {
           )}
         </div>
 
+        {children.length > 0 && (
+          <div className="mt-8">
+            <h2 className="mb-3 text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
+              Courses at this resort
+            </h2>
+            <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {children.map((c) => (
+                <li key={c.slug}>
+                  <Link
+                    href={`/course/${c.slug}`}
+                    className="flex items-center justify-between rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm transition-colors hover:border-emerald-400 hover:bg-emerald-50 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-emerald-600 dark:hover:bg-emerald-950/30"
+                  >
+                    <span className="text-zinc-900 dark:text-zinc-50">{c.name}</span>
+                    <span className="font-mono text-xs tabular-nums text-zinc-500 dark:text-zinc-500">
+                      {c.videoCount}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {siblings.length > 0 && (
+          <div className="mt-8">
+            <h2 className="mb-2 text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
+              Other courses at {parent?.name ?? "this resort"}
+            </h2>
+            <ul className="flex flex-wrap gap-2">
+              {siblings.map((s) => (
+                <li key={s.slug}>
+                  <Link
+                    href={`/course/${s.slug}`}
+                    className="rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs text-zinc-700 transition-colors hover:border-emerald-400 hover:bg-emerald-50 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300"
+                  >
+                    {s.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <div className="mt-12">
           <div className="mb-4 flex items-baseline justify-between">
             <h2 className="text-sm font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
@@ -106,8 +208,8 @@ export default async function CoursePage({ params }: PageProps) {
                 No videos indexed yet.
               </p>
               <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-500">
-                Extraction hasn't surfaced this course yet, or the channels we
-                ingested haven't covered it.
+                Either nothing extracted yet for this course, or our channels
+                haven&apos;t covered it.
               </p>
             </div>
           ) : (
@@ -140,6 +242,14 @@ export default async function CoursePage({ params }: PageProps) {
                         <span className="truncate">{v.channelName ?? "—"}</span>
                         <span>·</span>
                         <span>{formatDate(v.publishedAt)}</span>
+                        {isResort && v.matchedCourseSlug !== course.slug && (
+                          <>
+                            <span>·</span>
+                            <span className="rounded bg-zinc-100 px-1.5 py-0.5 text-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
+                              {v.matchedCourseName}
+                            </span>
+                          </>
+                        )}
                       </p>
                       {v.evidence && (
                         <p className="mt-2 line-clamp-2 text-xs italic text-zinc-500 dark:text-zinc-500">
@@ -154,7 +264,7 @@ export default async function CoursePage({ params }: PageProps) {
           )}
         </div>
 
-        {(course.lat || course.lng) && (
+        {(course.lat || course.lng) && !isResort && (
           <dl className="mt-12 grid grid-cols-2 gap-4 text-sm">
             <div>
               <dt className="text-zinc-500 dark:text-zinc-500">Latitude</dt>
