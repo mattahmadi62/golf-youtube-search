@@ -1,14 +1,25 @@
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { db } from "@/db";
-import { courses } from "@/db/schema";
+import { channels, courses, videoCourses, videos } from "@/db/schema";
 
 export const dynamic = "force-dynamic";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
+
+function formatDate(d: Date | string | null): string {
+  if (!d) return "";
+  const date = typeof d === "string" ? new Date(d) : d;
+  const days = Math.floor((Date.now() - date.getTime()) / 86_400_000);
+  if (days < 1) return "today";
+  if (days < 7) return `${days}d ago`;
+  if (days < 30) return `${Math.floor(days / 7)}w ago`;
+  if (days < 365) return `${Math.floor(days / 30)}mo ago`;
+  return `${Math.floor(days / 365)}y ago`;
+}
 
 export default async function CoursePage({ params }: PageProps) {
   const { slug } = await params;
@@ -22,11 +33,28 @@ export default async function CoursePage({ params }: PageProps) {
   const course = rows[0];
   if (!course) notFound();
 
+  const indexed = await db
+    .select({
+      ytVideoId: videos.ytVideoId,
+      title: videos.title,
+      publishedAt: videos.publishedAt,
+      thumbnailUrl: videos.thumbnailUrl,
+      channelName: channels.name,
+      confidence: videoCourses.confidence,
+      evidence: videoCourses.evidence,
+      source: videoCourses.source,
+    })
+    .from(videoCourses)
+    .innerJoin(videos, eq(videos.id, videoCourses.videoId))
+    .leftJoin(channels, eq(channels.id, videos.channelId))
+    .where(eq(videoCourses.courseId, course.id))
+    .orderBy(desc(videos.publishedAt));
+
   const location = [course.state, course.country].filter(Boolean).join(", ");
 
   return (
     <main className="min-h-dvh bg-zinc-50 dark:bg-black">
-      <div className="mx-auto max-w-2xl px-6 py-20">
+      <div className="mx-auto max-w-3xl px-6 py-16">
         <Link
           href="/"
           className="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-50"
@@ -60,17 +88,74 @@ export default async function CoursePage({ params }: PageProps) {
           )}
         </div>
 
-        <div className="mt-12 rounded-lg border border-dashed border-zinc-300 bg-white p-8 text-center dark:border-zinc-800 dark:bg-zinc-950">
-          <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-            No videos indexed yet.
-          </p>
-          <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-500">
-            M3 will start ingesting YouTube channels; this page will fill in.
-          </p>
+        <div className="mt-12">
+          <div className="mb-4 flex items-baseline justify-between">
+            <h2 className="text-sm font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
+              Indexed videos
+            </h2>
+            {indexed.length > 0 && (
+              <span className="font-mono text-xs tabular-nums text-zinc-500 dark:text-zinc-500">
+                {indexed.length}
+              </span>
+            )}
+          </div>
+
+          {indexed.length === 0 ? (
+            <div className="rounded-lg border border-dashed border-zinc-300 bg-white p-8 text-center dark:border-zinc-800 dark:bg-zinc-950">
+              <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                No videos indexed yet.
+              </p>
+              <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-500">
+                Extraction hasn't surfaced this course yet, or the channels we
+                ingested haven't covered it.
+              </p>
+            </div>
+          ) : (
+            <ul className="space-y-3">
+              {indexed.map((v) => (
+                <li
+                  key={v.ytVideoId}
+                  className="overflow-hidden rounded-lg border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950"
+                >
+                  <a
+                    href={`https://www.youtube.com/watch?v=${v.ytVideoId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex gap-4 p-3 transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-900"
+                  >
+                    {v.thumbnailUrl && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={v.thumbnailUrl}
+                        alt=""
+                        className="aspect-video w-40 rounded object-cover"
+                        loading="lazy"
+                      />
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-sm font-medium leading-snug text-zinc-900 dark:text-zinc-50">
+                        {v.title}
+                      </h3>
+                      <p className="mt-1 flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-500">
+                        <span className="truncate">{v.channelName ?? "—"}</span>
+                        <span>·</span>
+                        <span>{formatDate(v.publishedAt)}</span>
+                      </p>
+                      {v.evidence && (
+                        <p className="mt-2 line-clamp-2 text-xs italic text-zinc-500 dark:text-zinc-500">
+                          “{v.evidence}”
+                        </p>
+                      )}
+                    </div>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         {(course.lat || course.lng) && (
-          <dl className="mt-8 grid grid-cols-2 gap-4 text-sm">
+          <dl className="mt-12 grid grid-cols-2 gap-4 text-sm">
             <div>
               <dt className="text-zinc-500 dark:text-zinc-500">Latitude</dt>
               <dd className="mt-1 font-mono text-zinc-900 dark:text-zinc-50">
