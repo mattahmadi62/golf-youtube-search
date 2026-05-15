@@ -1,0 +1,123 @@
+[
+  { "name": "Pebble Beach Golf Links", "aliases": ["Pebble Beach", "Pebble"], "slug": "pebble-beach-golf-links", "state": "CA" },
+  { "name": "Cypress Point Club", "aliases": ["Cypress Point", "CPC"], "slug": "cypress-point-club", "state": "CA" },
+  { "name": "Spyglass Hill Golf Course", "aliases": ["Spyglass Hill", "Spyglass"], "slug": "spyglass-hill-golf-course", "state": "CA" },
+  { "name": "The Links at Spanish Bay", "aliases": ["Spanish Bay"], "slug": "spanish-bay", "state": "CA" },
+  { "name": "Riviera Country Club", "aliases": ["Riviera", "The Riv"], "slug": "riviera-country-club", "state": "CA" },
+  { "name": "Bel-Air Country Club", "aliases": ["Bel Air", "Bel-Air CC"], "slug": "bel-air-country-club", "state": "CA" },
+  { "name": "Lakeside Golf Club", "aliases": ["Lakeside"], "slug": "lakeside-golf-club", "state": "CA" },
+  { "name": "Wilshire Country Club", "aliases": ["Wilshire"], "slug": "wilshire-country-club", "state": "CA" },
+  { "name": "Los Angeles Country Club", "aliases": ["LACC", "LA Country Club", "LACC North"], "slug": "los-angeles-country-club", "state": "CA" },
+  { "name": "The Olympic Club", "aliases": ["Olympic Club", "Olympic Club Lake Course"], "slug": "olympic-club", "state": "CA" },
+  { "name": "San Francisco Golf Club", "aliases": ["SFGC"], "slug": "san-francisco-golf-club", "state": "CA" },
+  { "name": "Saticoy Country Club", "aliases": ["Saticoy", "Saticoy CC"], "slug": "saticoy-country-club", "state": "CA" },
+  { "name": "The Vintage Club", "aliases": ["Vintage Club"], "slug": "vintage-club", "state": "CA" },
+  { "name": "The Madison Club", "aliases": ["Madison Club"], "slug": "madison-club", "state": "CA" },
+  { "name": "The Quarry at La Quinta", "aliases": ["The Quarry"], "slug": "quarry-at-la-quinta", "state": "CA" },
+
+  { "name": "Augusta National Golf Club", "aliases": ["Augusta", "Augusta National", "ANGC"], "slug": "augusta-national-golf-club", "state": "GA" },
+  { "name": "East Lake Golf Club", "aliases": ["East Lake"], "slug": "east-lake-golf-club", "state": "GA" },
+  { "name": "Cuscowilla Golf Club", "aliases": ["Cuscowilla"], "slug": "cuscowilla", "state": "GA" },
+
+  { "name": "Pine Valley Golf Club", "aliases": ["Pine Valley"], "slug": "pine-valley-golf-club", "state": "NJ" },
+  { "name": "Liberty National Golf Club", "aliases": ["Liberty National"], "slug": "liberty-national-golf-club", "state": "NJ" },
+  { "name": "Trump National Golf Club Bedminster", "aliases": ["Trump Bedminster", "Bedminster"], "slug": "trump-national-bedminster", "state": "NJ" },
+
+  { "name": "Shinnecock Hills Golf Club", "aliases": ["Shinnecock", "Shinnecock Hills"], "slug": "shinnecock-hills-golf-club", "state": "NY" },
+  { "name": "National Golf Links of America", "aliases": ["NGLA", "National Golf Links", "The National"], "slug": "national-golf-links-of-america", "state": "NY" },
+  { "name": "Friar's Head", "aliases": ["Friars Head"], "slug": "friars-head", "state": "NY" },
+  { "name": "Maidstone Club", "aliases": ["Maidstone"], "slug": "maidstone-club", "state": "NY" },
+  { "name": "Fishers Island Club", "aliases": ["Fishers Island"], "slug": "fishers-island-club", "state": "NY" },
+  { "name": "Garden City Golf Club", "aliases": ["Garden City"], "slug": "garden-city-golf-club", "state": "NY" },
+  { "name": "Winged Foot Golf Club", "aliases": ["Winged Foot", "Winged Foot West", "Winged Foot East"], "slug": "winged-foot-golf-club", "state": "NY" },
+  { "name": "Bethpage Black Course", "aliases": ["Bethpage Black", "Bethpage"], "slug": "bethpage-black", "state": "NY" },
+  { "name": "Sleepy Hollow Country Club", "aliases": ["Sleepy Hollow"], "slug": "sleepy-hollow-country-club", "state": "NY" },
+  { "name": "The Bridge", "aliases": ["The Bridge Golf Club"], "slug": "the-bridge", "state": "NY" },
+  { "name": "Hudson National Golf Club", "aliases": ["Hudson National"], "slug": "hudson-national-golf-club", "state": "NY" },
+  { "name": "GlenArbor Golf Club", "aliases": ["GlenArbor", "Glen Arbor"], "slug": "glenarbor-golf-club", "state": "NY" },
+
+  { "name": "Merion Golf Club", "aliases": ["Merion", "Merion East"], "slug": "merion-golf-club", "state": "PA" },
+  { "name": "Oakmont Country Club", "aliases": ["Oakmont"], "slug": "oakmont-country-club", "state": "PA" },
+
+  { "name": "The Country Club", "aliases": ["TCC", "Brookline", "Country Club of Brookline"], "slug": "the-country-club-brookline", "state": "MA" },
+  { "name": "Myopia Hunt Club", "aliases": ["Myopia"], "slug": "myopia-hunt-club", "state": "MA" },
+  { "name": "Essex County Club", "aliases": ["Essex CC"], "slug": "essex-county-club", "state": "MA" },
+  { "name": "Eastward Ho! Country Club", "aliases": ["Eastward Ho"], "slug": "eastward-ho-country-club", "state": "MA" },
+  { "name": "Boston Golf Club", "aliases": ["BGC"], "slug": "boston-golf-club", "state": "MA" },
+  { "name": "Old Sandwich Golf Club", "aliases": ["Old Sandwich"], "slug": "old-sandwich-golf-club", "state": "MA" },
+  { "name": "Kittansett Club", "aliases": ["Kittansett"], "slug": "kittansett-club", "state": "MA" },
+
+  { "name": "Yale Golf Course", "aliases": ["Yale", "The Course at Yale"], "slug": "yale-golf-course", "state": "CT" },
+
+  { "name": "Seminole Golf Club", "aliases": ["Seminole"], "slug": "seminole-golf-club", "state": "FL" },
+  { "name": "TPC Sawgrass Stadium Course", "aliases": ["TPC Sawgrass", "Sawgrass", "TPC Stadium"], "slug": "tpc-sawgrass-stadium-course", "state": "FL" },
+  { "name": "Bay Hill Club and Lodge", "aliases": ["Bay Hill"], "slug": "bay-hill", "state": "FL" },
+  { "name": "Innisbrook Copperhead Course", "aliases": ["Innisbrook", "Copperhead"], "slug": "innisbrook-copperhead", "state": "FL" },
+  { "name": "PGA National Champion Course", "aliases": ["PGA National", "Champion Course"], "slug": "pga-national-champion", "state": "FL" },
+  { "name": "Streamsong Black", "aliases": ["Streamsong (Black)"], "slug": "streamsong-black", "state": "FL" },
+  { "name": "Streamsong Blue", "aliases": ["Streamsong (Blue)"], "slug": "streamsong-blue", "state": "FL" },
+  { "name": "Streamsong Red", "aliases": ["Streamsong (Red)"], "slug": "streamsong-red", "state": "FL" },
+  { "name": "Apogee Club", "aliases": ["Apogee"], "slug": "apogee-club", "state": "FL" },
+  { "name": "The Floridian", "aliases": ["Floridian"], "slug": "the-floridian", "state": "FL" },
+  { "name": "Calusa Pines Golf Club", "aliases": ["Calusa Pines"], "slug": "calusa-pines", "state": "FL" },
+  { "name": "Naples National Golf Club", "aliases": ["Naples National"], "slug": "naples-national", "state": "FL" },
+  { "name": "Trump International Golf Club West Palm Beach", "aliases": ["Trump West Palm", "Trump International West Palm"], "slug": "trump-international-west-palm", "state": "FL" },
+
+  { "name": "Pinehurst No. 2", "aliases": ["Pinehurst #2", "Pinehurst 2"], "slug": "pinehurst-no-2", "state": "NC" },
+  { "name": "Pinehurst No. 4", "aliases": ["Pinehurst #4", "Pinehurst 4"], "slug": "pinehurst-no-4", "state": "NC" },
+  { "name": "Pinehurst No. 9", "aliases": ["Pinehurst #9", "Pinehurst 9"], "slug": "pinehurst-no-9", "state": "NC" },
+  { "name": "Mid Pines Inn and Golf Club", "aliases": ["Mid Pines"], "slug": "mid-pines", "state": "NC" },
+  { "name": "Pine Needles Lodge and Golf Club", "aliases": ["Pine Needles"], "slug": "pine-needles", "state": "NC" },
+  { "name": "Quail Hollow Club", "aliases": ["Quail Hollow"], "slug": "quail-hollow-club", "state": "NC" },
+  { "name": "Old Town Club", "aliases": ["Old Town"], "slug": "old-town-club", "state": "NC" },
+  { "name": "Tobacco Road Golf Club", "aliases": ["Tobacco Road"], "slug": "tobacco-road", "state": "NC" },
+
+  { "name": "Kiawah Island Ocean Course", "aliases": ["Kiawah", "Ocean Course"], "slug": "kiawah-ocean-course", "state": "SC" },
+  { "name": "Harbour Town Golf Links", "aliases": ["Harbour Town"], "slug": "harbour-town-golf-links", "state": "SC" },
+  { "name": "Yeamans Hall Club", "aliases": ["Yeamans Hall"], "slug": "yeamans-hall", "state": "SC" },
+
+  { "name": "Sweetens Cove Golf Club", "aliases": ["Sweetens Cove"], "slug": "sweetens-cove", "state": "TN" },
+
+  { "name": "Muirfield Village Golf Club", "aliases": ["Muirfield Village"], "slug": "muirfield-village", "state": "OH" },
+  { "name": "Camargo Club", "aliases": ["Camargo"], "slug": "camargo-club", "state": "OH" },
+
+  { "name": "Crystal Downs Country Club", "aliases": ["Crystal Downs"], "slug": "crystal-downs", "state": "MI" },
+  { "name": "Arcadia Bluffs Golf Club", "aliases": ["Arcadia Bluffs"], "slug": "arcadia-bluffs", "state": "MI" },
+  { "name": "Forest Dunes Golf Club", "aliases": ["Forest Dunes", "The Loop"], "slug": "forest-dunes", "state": "MI" },
+
+  { "name": "Sand Hills Golf Club", "aliases": ["Sand Hills"], "slug": "sand-hills-golf-club", "state": "NE" },
+
+  { "name": "Whistling Straits", "aliases": ["Straits Course"], "slug": "whistling-straits", "state": "WI" },
+  { "name": "Blackwolf Run", "aliases": ["Blackwolf Run River"], "slug": "blackwolf-run", "state": "WI" },
+  { "name": "Erin Hills", "aliases": [], "slug": "erin-hills", "state": "WI" },
+  { "name": "Sand Valley Golf Resort", "aliases": ["Sand Valley"], "slug": "sand-valley", "state": "WI" },
+  { "name": "Mammoth Dunes", "aliases": [], "slug": "mammoth-dunes", "state": "WI" },
+  { "name": "The Lido", "aliases": ["Lido"], "slug": "the-lido", "state": "WI" },
+  { "name": "Sedge Valley", "aliases": [], "slug": "sedge-valley", "state": "WI" },
+  { "name": "Lawsonia Links", "aliases": ["Lawsonia"], "slug": "lawsonia-links", "state": "WI" },
+
+  { "name": "Bandon Dunes", "aliases": ["Bandon Dunes Course"], "slug": "bandon-dunes", "state": "OR" },
+  { "name": "Pacific Dunes", "aliases": [], "slug": "pacific-dunes", "state": "OR" },
+  { "name": "Bandon Trails", "aliases": [], "slug": "bandon-trails", "state": "OR" },
+  { "name": "Old Macdonald", "aliases": ["Old Mac"], "slug": "old-macdonald", "state": "OR" },
+  { "name": "Sheep Ranch", "aliases": [], "slug": "sheep-ranch", "state": "OR" },
+
+  { "name": "Payne's Valley Golf Course", "aliases": ["Paynes Valley"], "slug": "paynes-valley", "state": "MO" },
+  { "name": "Ozarks National Golf Course", "aliases": ["Ozarks National"], "slug": "ozarks-national", "state": "MO" },
+  { "name": "Buffalo Ridge Springs Golf Course", "aliases": ["Buffalo Ridge"], "slug": "buffalo-ridge", "state": "MO" },
+
+  { "name": "The Greenbrier Old White Course", "aliases": ["Old White", "Greenbrier"], "slug": "greenbrier-old-white", "state": "WV" },
+
+  { "name": "TPC Scottsdale Stadium Course", "aliases": ["TPC Scottsdale"], "slug": "tpc-scottsdale-stadium", "state": "AZ" },
+  { "name": "We-Ko-Pa Saguaro Course", "aliases": ["We-Ko-Pa Saguaro", "Saguaro"], "slug": "we-ko-pa-saguaro", "state": "AZ" },
+  { "name": "Apache Stronghold Golf Club", "aliases": ["Apache Stronghold"], "slug": "apache-stronghold", "state": "AZ" },
+
+  { "name": "Black Mesa Golf Club", "aliases": ["Black Mesa"], "slug": "black-mesa", "state": "NM" },
+
+  { "name": "Wolf Creek Golf Club", "aliases": ["Wolf Creek"], "slug": "wolf-creek", "state": "NV" },
+  { "name": "Edgewood Tahoe Golf Course", "aliases": ["Edgewood Tahoe", "Edgewood"], "slug": "edgewood-tahoe", "state": "NV" },
+
+  { "name": "Kapalua Plantation Course", "aliases": ["Kapalua", "Plantation Course"], "slug": "kapalua-plantation", "state": "HI" },
+  { "name": "Princeville Makai Golf Club", "aliases": ["Princeville Makai", "Makai"], "slug": "princeville-makai", "state": "HI" },
+  { "name": "Mauna Lani South Course", "aliases": ["Mauna Lani"], "slug": "mauna-lani-south", "state": "HI" }
+]

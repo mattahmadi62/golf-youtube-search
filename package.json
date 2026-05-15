@@ -9,7 +9,10 @@
     "lint": "eslint",
     "db:generate": "dotenv -e .env.local -- drizzle-kit generate",
     "db:push": "dotenv -e .env.local -- drizzle-kit push",
-    "db:studio": "dotenv -e .env.local -- drizzle-kit studio"
+    "db:studio": "dotenv -e .env.local -- drizzle-kit studio",
+    "db:bootstrap": "dotenv -e .env.local -- tsx scripts/db-bootstrap.ts",
+    "import:osm": "dotenv -e .env.local -- tsx scripts/import-osm.ts",
+    "seed:curated": "dotenv -e .env.local -- tsx scripts/seed-curated.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
@@ -28,6 +31,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "tailwindcss": "^4",
+    "tsx": "^4.22.0",
     "typescript": "^5"
   }
 }
