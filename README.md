@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Golf YouTube Search
 
-## Getting Started
+Find golf YouTube videos by **course**, not video title.
 
-First, run the development server:
+Big golf channels (Bob Does Sports, Good Good, Grant Horvat, Bryan Bros, etc.) routinely title videos like "WE PLAYED THE MOST EXCLUSIVE COURSE IN CALIFORNIA" without naming the course in any searchable metadata. This indexes the course names out of titles, descriptions, and auto-captions so you can actually search for them.
+
+See [PLAN.md](./PLAN.md) for the full design and milestone breakdown.
+
+## Stack
+
+- **Next.js 16** (App Router) + TypeScript + Tailwind v4
+- **Postgres on Neon** via the serverless HTTP driver
+- **Drizzle ORM** for schema and queries
+- Deploys to **Vercel**
+
+## Local setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+cp .env.example .env.local   # then paste your Neon DATABASE_URL
+pnpm db:push                 # apply schema to your DB
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Script | What it does |
+|---|---|
+| `pnpm dev` | Next.js dev server (Turbopack) |
+| `pnpm build` | Production build |
+| `pnpm start` | Run the production build |
+| `pnpm lint` | ESLint |
+| `pnpm db:generate` | Generate a new Drizzle migration from `src/db/schema.ts` |
+| `pnpm db:push` | Push the current schema directly to the DB (dev convenience) |
+| `pnpm db:studio` | Open Drizzle Studio against the DB |
 
-## Learn More
+All `db:*` scripts read `DATABASE_URL` from `.env.local` via `dotenv-cli`.
 
-To learn more about Next.js, take a look at the following resources:
+## Project layout
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+├── app/                 # Next.js routes
+└── db/
+    ├── index.ts         # Drizzle client (Neon HTTP)
+    └── schema.ts        # Tables: courses, channels, videos, video_courses, extraction_review_queue
+drizzle.config.ts        # Drizzle Kit config
+PLAN.md                  # Design + milestones
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Milestone status
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [x] **M1** — Scaffold + Neon + Drizzle wired, hello-world page reads from DB
+- [ ] **M2** — Course catalog seeded (OSM import + curated list)
+- [ ] **M3** — YouTube ingestion for one channel
+- [ ] **M4** — LLM extraction + review queue
+- [ ] **M5** — Search UI + course pages
+- [ ] **M6** — Backfill top 50 channels
+- [ ] **M7** — Polish + share
