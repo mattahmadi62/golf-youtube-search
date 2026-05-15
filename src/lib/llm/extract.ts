@@ -91,7 +91,10 @@ export class CourseExtractor {
                   properties: {
                     name: { type: "string" },
                     evidence: { type: "string" },
-                    confidence: { type: "number", minimum: 0, maximum: 1 },
+                    confidence: {
+                      type: "number",
+                      description: "0..1; clamp to this range",
+                    },
                   },
                   required: ["name", "evidence", "confidence"],
                   additionalProperties: false,
