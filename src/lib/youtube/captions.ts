@@ -51,6 +51,7 @@ async function runYtDlp(
   videoId: string,
   workDir: string,
   timeoutMs: number,
+  cookiesFromBrowser: string | null,
 ): Promise<{ ok: boolean; stderr: string }> {
   return new Promise((resolve) => {
     const args = [
@@ -68,8 +69,11 @@ async function runYtDlp(
       "%(id)s",
       "-P",
       workDir,
-      `https://www.youtube.com/watch?v=${videoId}`,
     ];
+    if (cookiesFromBrowser) {
+      args.push("--cookies-from-browser", cookiesFromBrowser);
+    }
+    args.push(`https://www.youtube.com/watch?v=${videoId}`);
     const proc = spawn("yt-dlp", args, { stdio: ["ignore", "ignore", "pipe"] });
     let stderr = "";
     proc.stderr?.on("data", (chunk) => {
@@ -106,12 +110,13 @@ async function findCaptionFile(workDir: string, videoId: string): Promise<string
  */
 export async function fetchCaptions(
   videoId: string,
-  opts: { timeoutMs?: number } = {},
+  opts: { timeoutMs?: number; cookiesFromBrowser?: string | null } = {},
 ): Promise<CaptionResult> {
   const timeoutMs = opts.timeoutMs ?? 60_000;
+  const cookiesFromBrowser = opts.cookiesFromBrowser ?? null;
   const workDir = await mkdtemp(path.join(tmpdir(), `yt-${videoId}-`));
   try {
-    const { ok, stderr } = await runYtDlp(videoId, workDir, timeoutMs);
+    const { ok, stderr } = await runYtDlp(videoId, workDir, timeoutMs, cookiesFromBrowser);
     if (!ok) {
       return { text: null, errorReason: stderr.split("\n")[0]?.slice(0, 200) || "yt-dlp failed" };
     }

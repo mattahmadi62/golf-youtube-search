@@ -12,16 +12,18 @@ type Args = {
   channel?: string; // @handle or channel ID
   limit?: number;
   concurrency: number;
+  cookiesFromBrowser: string | null;
 };
 
 function parseArgs(): Args {
   const argv = process.argv.slice(2);
-  const out: Args = { concurrency: 6 };
+  const out: Args = { concurrency: 6, cookiesFromBrowser: null };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === "--channel") out.channel = argv[++i];
     else if (a === "--limit") out.limit = parseInt(argv[++i], 10);
     else if (a === "--concurrency") out.concurrency = parseInt(argv[++i], 10);
+    else if (a === "--cookies-from-browser") out.cookiesFromBrowser = argv[++i];
     else if (a.startsWith("@")) out.channel = a;
   }
   return out;
@@ -30,7 +32,7 @@ function parseArgs(): Args {
 async function main() {
   const args = parseArgs();
   console.log(
-    `Args: channel=${args.channel ?? "(all)"} limit=${args.limit ?? "(no limit)"} concurrency=${args.concurrency}`,
+    `Args: channel=${args.channel ?? "(all)"} limit=${args.limit ?? "(no limit)"} concurrency=${args.concurrency} cookies=${args.cookiesFromBrowser ?? "(none)"}`,
   );
 
   if (!(await ytDlpAvailable())) {
@@ -85,7 +87,9 @@ async function main() {
       const idx = next++;
       if (idx >= queue.length) return;
       const v = queue[idx];
-      const result = await fetchCaptions(v.ytVideoId);
+      const result = await fetchCaptions(v.ytVideoId, {
+        cookiesFromBrowser: args.cookiesFromBrowser,
+      });
       if (result.text === null) {
         failed++;
       } else {
