@@ -1,5 +1,6 @@
 import { and, desc, eq, isNull, sql } from "drizzle-orm";
 import Link from "next/link";
+import { SearchBox } from "@/components/SearchBox";
 import { db } from "@/db";
 import {
   channels,
@@ -135,7 +136,7 @@ export default async function Home() {
   return (
     <main className="min-h-dvh bg-zinc-50 dark:bg-black">
       <div className="mx-auto max-w-5xl px-6 py-16">
-        <header className="mb-12 max-w-2xl">
+        <header className="mb-10 max-w-2xl">
           <p className="text-sm font-medium uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
             Golf YouTube Search
           </p>
@@ -143,11 +144,15 @@ export default async function Home() {
             Find golf videos by course.
           </h1>
           <p className="mt-3 text-zinc-600 dark:text-zinc-400">
-            Index the courses out of video titles, descriptions, and captions
-            so you can actually search for them. Real search lands in M5; this
-            is the catalog state.
+            Type any course name. The index pulls courses out of video titles,
+            descriptions, and auto-captions across {counts.channels} channels and{" "}
+            {counts.videos.toLocaleString()} videos.
           </p>
         </header>
+
+        <div className="mb-12">
+          <SearchBox />
+        </div>
 
         <section className="mb-12">
           <h2 className="mb-3 text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">

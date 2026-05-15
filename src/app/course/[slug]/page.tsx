@@ -1,6 +1,7 @@
 import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { VideoList } from "@/components/VideoList";
 import { db } from "@/db";
 import { channels, courses, videoCourses, videos } from "@/db/schema";
 
@@ -9,17 +10,6 @@ export const dynamic = "force-dynamic";
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
-
-function formatDate(d: Date | string | null): string {
-  if (!d) return "";
-  const date = typeof d === "string" ? new Date(d) : d;
-  const days = Math.floor((Date.now() - date.getTime()) / 86_400_000);
-  if (days < 1) return "today";
-  if (days < 7) return `${days}d ago`;
-  if (days < 30) return `${Math.floor(days / 7)}w ago`;
-  if (days < 365) return `${Math.floor(days / 30)}mo ago`;
-  return `${Math.floor(days / 365)}y ago`;
-}
 
 export default async function CoursePage({ params }: PageProps) {
   const { slug } = await params;
@@ -213,54 +203,19 @@ export default async function CoursePage({ params }: PageProps) {
               </p>
             </div>
           ) : (
-            <ul className="space-y-3">
-              {indexed.map((v) => (
-                <li
-                  key={v.ytVideoId}
-                  className="overflow-hidden rounded-lg border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950"
-                >
-                  <a
-                    href={`https://www.youtube.com/watch?v=${v.ytVideoId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex gap-4 p-3 transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-900"
-                  >
-                    {v.thumbnailUrl && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={v.thumbnailUrl}
-                        alt=""
-                        className="aspect-video w-40 rounded object-cover"
-                        loading="lazy"
-                      />
-                    )}
-                    <div className="min-w-0 flex-1">
-                      <h3 className="text-sm font-medium leading-snug text-zinc-900 dark:text-zinc-50">
-                        {v.title}
-                      </h3>
-                      <p className="mt-1 flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-500">
-                        <span className="truncate">{v.channelName ?? "—"}</span>
-                        <span>·</span>
-                        <span>{formatDate(v.publishedAt)}</span>
-                        {isResort && v.matchedCourseSlug !== course.slug && (
-                          <>
-                            <span>·</span>
-                            <span className="rounded bg-zinc-100 px-1.5 py-0.5 text-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
-                              {v.matchedCourseName}
-                            </span>
-                          </>
-                        )}
-                      </p>
-                      {v.evidence && (
-                        <p className="mt-2 line-clamp-2 text-xs italic text-zinc-500 dark:text-zinc-500">
-                          “{v.evidence}”
-                        </p>
-                      )}
-                    </div>
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <VideoList
+              videos={indexed.map((v) => ({
+                ytVideoId: v.ytVideoId,
+                title: v.title,
+                publishedAt: v.publishedAt,
+                thumbnailUrl: v.thumbnailUrl,
+                channelName: v.channelName,
+                evidence: v.evidence,
+                matchedCourseName: v.matchedCourseName,
+                matchedCourseSlug: v.matchedCourseSlug,
+              }))}
+              showMatchedCourse={isResort}
+            />
           )}
         </div>
 
