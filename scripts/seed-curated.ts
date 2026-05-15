@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
-import { and, eq, inArray, isNotNull, sql } from "drizzle-orm";
+import { and, eq, inArray, isNotNull, isNull, sql } from "drizzle-orm";
 import { courses } from "../src/db/schema";
 
 const DATABASE_URL = process.env.DATABASE_URL;
@@ -34,6 +34,17 @@ async function main() {
 
   const entries = await loadCurated();
   console.log(`Curated entries: ${entries.length}`);
+
+  // Idempotency: drop pure-curated rows (no OSM backing) and un-mark any OSM
+  // rows previously promoted to curated. The seed then re-applies cleanly.
+  console.log("Resetting prior curated state...");
+  await db
+    .delete(courses)
+    .where(and(eq(courses.isCurated, true), isNull(courses.osmId)));
+  await db
+    .update(courses)
+    .set({ isCurated: false, aliases: [] })
+    .where(eq(courses.isCurated, true));
 
   let matched = 0;
   let inserted = 0;
@@ -139,6 +150,68 @@ async function main() {
     .from(courses)
     .where(eq(courses.isCurated, true));
   console.log(`\nTotal curated rows now: ${totalCurated[0]?.count ?? 0}`);
+
+  // Second pass: for curated rows that didn't match an OSM entry by exact name
+  // (so osm_id is still null), try a pg_trgm similarity match in the same state.
+  // High-confidence matches merge OSM geo data into the curated row.
+  await fuzzyMatchPass(db);
+}
+
+async function fuzzyMatchPass(db: ReturnType<typeof drizzle>) {
+  // Trigram similarity on course names is too noisy to safely auto-merge —
+  // "Hudson National" looks similar to "Trump National Hudson Valley", and
+  // "Payne's Valley" to "Sun Valley", because the shared tokens dominate.
+  // For now this pass only reports candidates so they can be reviewed and
+  // either added to the curated JSON's `aliases` (which makes the next seed
+  // run match exactly) or flagged for the M4 review queue.
+  const SIMILARITY_THRESHOLD = 0.5;
+
+  console.log("\nFuzzy match pass (pg_trgm, report-only)...");
+  const unmatchedCurated = await db
+    .select({
+      id: courses.id,
+      name: courses.name,
+      state: courses.state,
+    })
+    .from(courses)
+    .where(
+      and(
+        eq(courses.isCurated, true),
+        isNull(courses.osmId),
+        isNotNull(courses.state),
+      ),
+    );
+
+  console.log(`  Candidates (curated, no osm_id, state known): ${unmatchedCurated.length}`);
+
+  let withCandidates = 0;
+  for (const c of unmatchedCurated) {
+    const result = (await db.execute(sql`
+      SELECT name, similarity(name, ${c.name}) AS sim
+      FROM courses
+      WHERE state = ${c.state}
+        AND osm_id IS NOT NULL
+        AND is_curated = false
+        AND similarity(name, ${c.name}) > ${SIMILARITY_THRESHOLD}
+      ORDER BY sim DESC
+      LIMIT 3
+    `)) as unknown as {
+      rows: Array<{ name: string; sim: number }>;
+    };
+    if (result.rows.length === 0) continue;
+    withCandidates++;
+    const summary = result.rows
+      .map((m) => `"${m.name}" ${Number(m.sim).toFixed(2)}`)
+      .join(", ");
+    console.log(`  • "${c.name}" (${c.state}) → ${summary}`);
+  }
+
+  console.log(
+    `\n  ${withCandidates} curated entries have plausible OSM matches.`,
+  );
+  console.log(
+    `  Add the OSM names as aliases in data/curated-courses.json to merge them on the next run.`,
+  );
 }
 
 main().catch((err) => {
