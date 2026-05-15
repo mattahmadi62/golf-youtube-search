@@ -16,14 +16,17 @@
     "import:osm": "dotenv -e .env.local -- tsx scripts/import-osm.ts",
     "seed:curated": "dotenv -e .env.local -- tsx scripts/seed-curated.ts",
     "ingest:videos": "dotenv -e .env.local -- tsx scripts/ingest-videos.ts",
-    "ingest:captions": "dotenv -e .env.local -- tsx scripts/ingest-captions.ts"
+    "ingest:captions": "dotenv -e .env.local -- tsx scripts/ingest-captions.ts",
+    "extract:courses": "dotenv -e .env.local -- tsx scripts/extract-courses.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.96.0",
     "@neondatabase/serverless": "^1.1.0",
     "drizzle-orm": "^0.45.2",
     "next": "16.2.6",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
