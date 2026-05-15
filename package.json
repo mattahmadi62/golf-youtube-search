@@ -18,7 +18,8 @@
     "ingest:videos": "dotenv -e .env.local -o -- tsx scripts/ingest-videos.ts",
     "ingest:captions": "dotenv -e .env.local -o -- tsx scripts/ingest-captions.ts",
     "extract:courses": "dotenv -e .env.local -o -- tsx scripts/extract-courses.ts",
-    "rematch:queue": "dotenv -e .env.local -o -- tsx scripts/rematch-queue.ts"
+    "rematch:queue": "dotenv -e .env.local -o -- tsx scripts/rematch-queue.ts",
+    "cleanup:extractions": "dotenv -e .env.local -o -- tsx scripts/cleanup-extractions.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.96.0",

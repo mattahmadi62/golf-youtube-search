@@ -5,6 +5,7 @@ import { and, eq, isNotNull, isNull, sql } from "drizzle-orm";
 import { extractionReviewQueue, videoCourses, videos } from "../src/db/schema";
 import { CourseExtractor, MODEL_ID } from "../src/lib/llm/extract";
 import { matchCourse } from "../src/lib/match";
+import { evaluateSkip } from "../src/lib/skip-filter";
 
 const DATABASE_URL = process.env.DATABASE_URL;
 if (!DATABASE_URL) throw new Error("DATABASE_URL is not set");
@@ -58,6 +59,7 @@ async function main() {
 
   let done = 0;
   let extracted = 0;
+  let skipped = 0;
   let matched = 0;
   let queuedForReview = 0;
   let failed = 0;
@@ -82,11 +84,27 @@ async function main() {
             title: videos.title,
             description: videos.description,
             captionsText: videos.captionsText,
+            durationS: videos.durationS,
           })
           .from(videos)
           .where(eq(videos.id, v.id))
           .limit(1);
         if (!full) continue;
+
+        // Skip Shorts and obvious non-course content (podcasts, equipment
+        // reviews, swing tips) before paying for an LLM call.
+        const skip = evaluateSkip({ title: full.title, durationS: full.durationS });
+        if (skip.skip) {
+          if (!args.dryRun) {
+            await db
+              .update(videos)
+              .set({ extractedAt: new Date(), extractionModel: `skipped:${skip.reason}` })
+              .where(eq(videos.id, v.id));
+          }
+          skipped++;
+          done++;
+          continue;
+        }
 
         const result = await extractor.extract({
           title: full.title,
@@ -147,7 +165,7 @@ async function main() {
         const rate = done / elapsed;
         const eta = Math.round((queue.length - done) / rate);
         process.stdout.write(
-          `\r  done=${done}/${queue.length} matched=${matched} review=${queuedForReview} failed=${failed} ${rate.toFixed(2)}/s eta=${eta}s   `,
+          `\r  done=${done}/${queue.length} matched=${matched} review=${queuedForReview} skipped=${skipped} failed=${failed} ${rate.toFixed(2)}/s eta=${eta}s   `,
         );
       }
     }
@@ -159,7 +177,9 @@ async function main() {
 
   const seconds = Math.round((Date.now() - start) / 1000);
   console.log(`\nDone in ${seconds}s.`);
-  console.log(`  extracted=${extracted}, matched=${matched}, review=${queuedForReview}, failed=${failed}`);
+  console.log(
+    `  extracted=${extracted}, matched=${matched}, review=${queuedForReview}, skipped=${skipped}, failed=${failed}`,
+  );
 
   // Cost estimate — Claude Haiku 4.5: $1/1M input (uncached), $0.1/1M cached read, $5/1M output.
   const cost =
