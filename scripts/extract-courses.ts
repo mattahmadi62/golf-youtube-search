@@ -39,13 +39,10 @@ async function main() {
   const extractor = new CourseExtractor();
 
   // Eligible: have captions text (non-empty) AND not yet extracted.
+  // Pull only IDs upfront — loading captionsText for thousands of rows in
+  // one query blows past Neon HTTP's response-size limit.
   const queue = await db
-    .select({
-      id: videos.id,
-      title: videos.title,
-      description: videos.description,
-      captionsText: videos.captionsText,
-    })
+    .select({ id: videos.id })
     .from(videos)
     .where(
       and(
@@ -77,10 +74,24 @@ async function main() {
       const v = queue[idx];
 
       try {
+        // Fetch the full row now (deferred from the initial scan so we don't
+        // blow Neon HTTP's response-size limit on the pending list).
+        const [full] = await db
+          .select({
+            id: videos.id,
+            title: videos.title,
+            description: videos.description,
+            captionsText: videos.captionsText,
+          })
+          .from(videos)
+          .where(eq(videos.id, v.id))
+          .limit(1);
+        if (!full) continue;
+
         const result = await extractor.extract({
-          title: v.title,
-          description: v.description,
-          captions: v.captionsText,
+          title: full.title,
+          description: full.description,
+          captions: full.captionsText,
         });
         totalInputTokens += result.inputTokens;
         totalOutputTokens += result.outputTokens;
