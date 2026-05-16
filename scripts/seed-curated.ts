@@ -39,14 +39,15 @@ async function main() {
   const entries = await loadCurated();
   console.log(`Curated entries: ${entries.length}`);
 
-  // Idempotency: drop pure-curated rows (no OSM backing) and un-mark any OSM
-  // rows previously promoted to curated. The seed then re-applies cleanly.
+  // Idempotency: clear is_curated + aliases + parent links on previously
+  // curated rows so the seed re-applies cleanly. We DO NOT delete pure-curated
+  // rows (rows with no osm_id), because their row IDs are referenced by
+  // video_courses and extraction_review_queue — deleting them would cascade
+  // away video↔course links we want to keep. Stale curated rows whose entries
+  // are removed from the JSON will just stay marked is_curated=false with
+  // empty aliases (effectively orphaned, harmless).
   console.log("Resetting prior curated state...");
-  // Clear parent links first — they reference courses we may be about to delete.
   await db.update(courses).set({ parentCourseId: null }).where(isNotNull(courses.parentCourseId));
-  await db
-    .delete(courses)
-    .where(and(eq(courses.isCurated, true), isNull(courses.osmId)));
   await db
     .update(courses)
     .set({ isCurated: false, aliases: [] })
