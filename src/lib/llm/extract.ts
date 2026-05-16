@@ -37,6 +37,7 @@ Critical rules:
   · TV/tournament discussion ("Rory's playing the Open at Royal Liverpool this week", "the Masters is at Augusta")
   · An aspirational or hypothetical ("I'd love to play Cypress someday", "if you ever go to Pinehurst…")
   · Equipment/swing context ("I used my new driver at Pebble last month")
+  · A REPLICA OR TRIBUTE — phrases like "a replica of X", "inspired by X", "modeled after X", "this hole is X" at a tribute course, "the X hole" at a multi-replica venue ("Tour 18", "World Class Holes"). The video is at the replica/tribute venue, NOT at X. If the actual venue is named (e.g. "we're at Tour 18 and this is their replica of Augusta 13"), extract the actual venue (Tour 18). Never extract the replicated course.
 - If the video's location is never explicitly stated in title, description, or captions, and the only course references are in the above contexts, return an EMPTY array. It's better to extract nothing than to extract a wrong course.
 - Look for present-tense, in-the-moment language as the strongest signal: "we're playing here at X", "today at X", "welcome to X", "I'm on the X tee right now", "this is hole 4 at X".
 - If a video covers multiple rounds at different courses (golf trip, "play 18 courses in a week"), return all of them.
