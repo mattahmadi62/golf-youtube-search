@@ -83,6 +83,12 @@ const HARD_SKIP_PATTERNS: RegExp[] = [
   /\b(golf|swing|putting|chipping|driving|iron) (lesson|lessons|drill|drills)\b/i,
   /\bgolf (tip|tips|drill|drills)\b/i,
 
+  // Putting / chipping / trick-shot challenges — not course play
+  // ("LOOP THE LOOP PUTTING CHALLENGE", "TRICK SHOT CONTEST")
+  /\b(putting|chipping|driving range|trick shot|trick shots|short game|long game|bunker|flop shot) (challenge|contest|competition|tournament|game|battle)\b/i,
+  /\b(mini golf|mini-golf|putt putt|putt-putt|minigolf|mini-putt|mini putt)\b/i,
+  /\bloop the loop\b/i,
+
   // Bare "lesson" framing — "Lesson W/", "Lesson with [coach]", "PGA Tour lesson",
   // "I gave him a lesson", "took a lesson", etc.
   /\blesson w[/\\]|\blesson (with|from|by)\b/i,
