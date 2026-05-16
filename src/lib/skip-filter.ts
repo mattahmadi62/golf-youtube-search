@@ -122,6 +122,11 @@ const HARD_SKIP_PATTERNS: RegExp[] = [
   // ("Rick Shiels & Tommy Fleetwood talk golf")
   /\b(talks?|talking) (golf|to|about|with)\b/i,
   /\b(in conversation with|sit down with|sits down with|chats? with|chatting with)\b/i,
+  // Q&A-style podcast formats
+  // ("Part 2 JUSTIN ROSE SWING, ST GEORGE, AWKWARD QUESTIONS, TATTOOS & SPITTING")
+  /\b(awkward|rapid fire|tough|hard|burning|fan|viewer|spicy|hot seat|fire) questions?\b/i,
+  /\b(awkward|rapid fire|tough|hard|burning|fan|viewer|spicy) answers?\b/i,
+  /\bhot seat\b/i,
 
   // Generic year-in-review / introspective format
   /\b(years? on youtube|years? of youtube|i'?ve done youtube)\b/i,
