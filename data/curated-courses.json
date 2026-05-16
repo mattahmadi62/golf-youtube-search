@@ -1,5 +1,5 @@
 [
-  {"name": "Pebble Beach Golf Links", "aliases": ["Pebble Beach", "Pebble"], "slug": "pebble-beach-golf-links", "state": "CA"},
+  {"name": "Pebble Beach Golf Links", "aliases": ["Pebble Beach"], "slug": "pebble-beach-golf-links", "state": "CA"},
   {"name": "Cypress Point Club", "aliases": ["Cypress Point", "CPC"], "slug": "cypress-point-club", "state": "CA"},
   {"name": "Spyglass Hill Golf Course", "aliases": ["Spyglass Hill", "Spyglass"], "slug": "spyglass-hill-golf-course", "state": "CA"},
   {"name": "The Links at Spanish Bay", "aliases": ["Spanish Bay"], "slug": "spanish-bay", "state": "CA"},
@@ -201,5 +201,6 @@
   {"name": "Trump National Jupiter", "aliases": ["Trump Jupiter"], "slug": "trump-national-jupiter", "state": "FL"},
   {"name": "Top of the Rock Golf Course", "aliases": ["Top of the Rock"], "slug": "top-of-the-rock", "state": "MO", "parent": "big-cedar-lodge"},
   {"name": "Ozark National Golf Course", "aliases": ["Ozark National"], "slug": "ozark-national", "state": "MO", "parent": "big-cedar-lodge"},
-  {"name": "Primland Resort", "aliases": ["Primland", "Primland Golf Resort", "Highland Course at Primland"], "slug": "primland-resort", "state": "VA"}
+  {"name": "Primland Resort", "aliases": ["Primland", "Primland Golf Resort", "Highland Course at Primland"], "slug": "primland-resort", "state": "VA"},
+  {"name": "Omni La Costa Resort", "aliases": ["Omni La Costa", "La Costa Resort", "La Costa", "La Costa Omni Resort Golf Course", "La Costa Champions Course", "La Costa Legends Course"], "slug": "omni-la-costa-resort", "state": "CA"}
 ]
