@@ -177,6 +177,28 @@ const HARD_SKIP_PATTERNS: RegExp[] = [
   /\bsimulator\b/i,
   /\btrugolf\b/i,
   /\b(trackman|skytrak|foresight|gcquad)\b/i,
+
+  // Opinion / editorial / "is X the best form of Y" framing
+  // ("Are links courses the best form of golf?")
+  /\b(are|is) (links?|target|parkland|the )?[\w'-]* ?courses? the best\b/i,
+
+  // "[N] things great golfers do" / "5 easy things..." — instructional listicle
+  /\b\d+\s+(easy|simple|amazing|surprising|brilliant|effective|smart|powerful|key|essential|crucial|hard) (things|tips|tricks|habits|secrets|moves|drills|shots|reasons) (every|great|good|amateur|pro|professional|tour|low|high|all|the best|elite|top|smart)\s+(golfers?|players?)\b/i,
+  /\b\d+\s+(things|tips|tricks|habits|secrets|drills) (every|great|good|amateur|pro|professional|tour|low|high|all|elite|top)\s+(golfers?|players?) (do|need|should|must)\b/i,
+
+  // "Why doesn't/don't X use Y" — opinion / equipment piece
+  /\bwhy (doesn'?t|don'?t|won'?t|wouldn'?t|shouldn'?t|isn'?t|aren'?t)\b/i,
+
+  // Handicap-recap videos that list courses played without filming there
+  // ("Rick Shiels OFFICIAL golf handicap - very SURPRISED!")
+  /\b(official|my actual|true|real|current|what'?s my|revealing my)\s+(golf\s+)?handicap\b/i,
+
+  // Equipment thrift / shopping ("I buy RARE golf clubs in St Andrews (thrift)")
+  /\b(thrift|thrifting|second\s*-?hand)\b/i,
+  /\bi\s+(buy|bought|found)\s+(the\s+)?(rare|cheap|vintage|old|antique|used|secondhand|second-hand)\s+(golf\s+)?clubs?\b/i,
+
+  // Peter Finch's COVID-era simulator-based creator tournament series
+  /\bisolation invitational\b/i,
 ];
 
 // ============================================================================
