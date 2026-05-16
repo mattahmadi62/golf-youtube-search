@@ -45,11 +45,20 @@ const HARD_SKIP_PATTERNS: RegExp[] = [
   // Brand-led equipment titles ("TaylorMade Stealth Driver Review", "PING G430 Iron")
   /\b(taylormade|callaway|titleist|mizuno|ping|pxg|cobra|wilson|srixon|cleveland|bridgestone|honma|tour edge|cobra puma|vice|onCore|snell)\b.*\b(driver|iron|irons|wedge|wedges|putter|putters|hybrid|fairway|wood|woods|ball|balls)\b/i,
 
+  // "BEST/WORST DRIVERS in golf", "best putter ever" — ranking-style equipment
+  /\b(best|worst|cheapest|most expensive|longest|shortest) (drivers?|irons?|wedges?|putters?|hybrids?|balls?|golf bags?)\b/i,
+
+  // Distance / launch monitor tests (almost always equipment, not course play)
+  /\b(distance test|carry test|launch monitor)\b/i,
+
   // Instruction / tips / drills
-  /\b(swing|chipping|putting|bunker|wedge|driving|short game|long game|iron|ball) (tip|tips|lesson|lessons|drill|drills|fix|fixes|fundamental|fundamentals|technique|trick|tricks)\b/i,
+  /\b(swing|chipping|putting|bunker|wedge|driving|short game|long game|iron|ball) (tip|tips|lesson|lessons|drill|drills|fix|fixes|fundamental|fundamentals|technique|trick|tricks|analysis|analyzed|breakdown)\b/i,
   /\btips? (and|&) tricks?\b/i,
   /\b(golf|swing|putting|chipping|driving|iron) (lesson|lessons|drill|drills)\b/i,
   /\bgolf (tip|tips|drill|drills)\b/i,
+
+  // Swing / grip / setup analysis ("DAVIS LOVE iii SWING ANALYSIS")
+  /\b(swing|grip|setup|alignment|stance|posture|tempo|impact|takeaway|backswing|downswing|release) (analysis|analyzed|breakdown|review)\b/i,
 
   // Swing fixes — "fix your slice", "cure that hook", "stop slicing"
   /\b(stop|fix|cure|kill|eliminate|prevent|conquer)( your| the| my| that)? (slic(e|ing|ed)|hook(s|ing|ed)?|top(ping|s|ped)?|chunk(ing|s|ed)?|fat shots?|thin shots?|shank(s|ing|ed)?|skull(s|ing|ed)?)\b/i,
@@ -83,11 +92,22 @@ const HARD_SKIP_PATTERNS: RegExp[] = [
   /\bday in the life\b/i,
   /\binterview(?:ing)?\b/i,
 
-  // Lists / rankings / tier lists
-  /\btop (3|5|10|20|25|50|100) (drivers?|irons?|wedges?|putters?|balls?|courses?|moments|shots?|fails?|holes?|tips?)\b/i,
+  // Press conferences, golf shows, talk shows, live broadcasts
+  /\b(press conference|presser)\b/i,
+  /\b(golf show|talk show|news show|monday night golf show)\b/i,
+  /\blive (broadcast|stream|coverage)\b/i,
+
+  // Generic year-in-review / introspective format
+  /\b(years? on youtube|years? of youtube|i'?ve done youtube)\b/i,
+  /\b(here'?s what i'?ve learned|what i learned|lessons learned)\b/i,
+
+  // Lists / rankings / tier lists ("TOP 10: Golf Courses You Must Play")
+  /\btop\s*(3|4|5|6|7|10|15|20|25|50|100)\b[\s:\-—,]/i,
   /\bbest (driver|iron|wedge|putter|ball|golf bag|golf course)s? of (20\d\d|the year|all time|2\d{3})\b/i,
   /\btier list\b/i,
   /\bworst (golf|drivers?|irons?|wedges?|putters?|balls?|shots?)/i,
+  /\b(courses|holes|shots) you (must|absolutely|have to|need to) play\b/i,
+  /\b(most|absolutely) must play\b/i,
 
   // First look / first impression of equipment
   /\b(launch|first look|first impressions?|hands on)\b.*\b(driver|iron|wedge|putter|hybrid)\b/i,

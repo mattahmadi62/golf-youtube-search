@@ -39,6 +39,14 @@ Critical rules:
   · Equipment/swing context ("I used my new driver at Pebble last month")
   · A REPLICA OR TRIBUTE — phrases like "a replica of X", "inspired by X", "modeled after X", "this hole is X" at a tribute course, "the X hole" at a multi-replica venue ("Tour 18", "World Class Holes"). The video is at the replica/tribute venue, NOT at X. If the actual venue is named (e.g. "we're at Tour 18 and this is their replica of Augusta 13"), extract the actual venue (Tour 18). Never extract the replicated course.
 - If the video's location is never explicitly stated in title, description, or captions, and the only course references are in the above contexts, return an EMPTY array. It's better to extract nothing than to extract a wrong course.
+- VIDEO PURPOSE TEST — even if the video is *physically filmed at* a real course, if its primary purpose is one of these, return an EMPTY array:
+  · Equipment testing / club review / "distance test" — even when filmed on the 18th at St Andrews, the video is about the equipment, not the course
+  · Swing analysis / swing breakdown / lesson / drill / tip
+  · Podcast, talk show, press conference, "news show", live broadcast/coverage
+  · Year-in-review / introspective / "what I've learned from N years on YouTube"
+  · Ranking lists / Top 10 / Tier list / "courses you must play" / "best of [year]"
+  · Reaction / breakdown of someone else's content
+  The rule is: the video must be people playing golf AT the course as the primary activity, not using the course as a backdrop for some other activity.
 - Look for present-tense, in-the-moment language as the strongest signal: "we're playing here at X", "today at X", "welcome to X", "I'm on the X tee right now", "this is hole 4 at X".
 - If a video covers multiple rounds at different courses (golf trip, "play 18 courses in a week"), return all of them.
 - Use the course name as it appears in the source. Don't normalize aggressively — leave "TPC Sawgrass" as "TPC Sawgrass", not "Tournament Players Club Sawgrass".
