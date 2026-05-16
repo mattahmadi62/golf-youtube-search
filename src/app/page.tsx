@@ -138,16 +138,16 @@ export default async function Home() {
       <div className="mx-auto max-w-5xl px-6 py-16">
         <header className="mb-10 flex items-start justify-between gap-6">
           <div className="max-w-2xl">
-            <p className="text-sm font-medium uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-              Golf YouTube Search
+            <p className="text-sm font-medium uppercase tracking-[0.18em] text-emerald-600 dark:text-emerald-400">
+              CaddieReel
             </p>
             <h1 className="mt-2 text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
               Find golf videos by course.
             </h1>
             <p className="mt-3 text-zinc-600 dark:text-zinc-400">
-              Type any course name. The index pulls courses out of video titles,
-              descriptions, and auto-captions across {counts.channels} channels and{" "}
-              {counts.videos.toLocaleString()} videos.
+              Type any course name. CaddieReel pulls course mentions out of video
+              titles, descriptions, and auto-captions across {counts.channels}{" "}
+              channels and {counts.videos.toLocaleString()} videos.
             </p>
           </div>
           <Link

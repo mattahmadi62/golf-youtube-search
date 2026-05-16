@@ -1,8 +1,8 @@
-# Golf YouTube Search
+# CaddieReel
 
 Find golf YouTube videos by **course**, not video title.
 
-Big golf channels (Bob Does Sports, Good Good, Grant Horvat, Bryan Bros, etc.) routinely title videos like "WE PLAYED THE MOST EXCLUSIVE COURSE IN CALIFORNIA" without naming the course in any searchable metadata. This indexes the course names out of titles, descriptions, and auto-captions so you can actually search for them.
+Big golf channels (Bob Does Sports, Good Good, Grant Horvat, Bryan Bros, Rick Shiels, Peter Finch, etc.) routinely title videos like "WE PLAYED THE MOST EXCLUSIVE COURSE IN CALIFORNIA" without naming the course in any searchable metadata. CaddieReel indexes the course names out of titles, descriptions, and auto-captions so you can actually search for them.
 
 See [PLAN.md](./PLAN.md) for the full design and milestone breakdown.
 
