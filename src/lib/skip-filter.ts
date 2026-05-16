@@ -62,6 +62,11 @@ const HARD_SKIP_PATTERNS: RegExp[] = [
   // Buying / fitting guides ("8 mistakes when buying a driver", "What to look for when choosing irons")
   /\b(mistakes|errors|things|tips|what to know|guide|guides) (when|while|to know|to avoid|for) (buying|choosing|picking|fitting|using|getting)/i,
   /\b(buying|fitting) (a|an|the|my|your|new)? (driver|iron|wedge|putter|hybrid|ball|fairway wood)\b/i,
+  // "Ultimate buyer's guide" / "Buyer's guide" — equipment-purchase framing
+  /\bbuyer'?s guide\b/i,
+  /\bultimate (buyer'?s|buying|equipment) guide\b/i,
+  // "Which/what irons should you use" / "Which driver is best for you"
+  /\b(which|what) (driver|drivers|iron|irons|wedge|wedges|putter|putters|hybrid|hybrids|ball|balls|clubs?|fairway woods?|woods?|shaft|grip|set|set of clubs|equipment) (should|do|are|is|will|would|to)\b/i,
 
   // "This X is about to transform my game" / "How I improved my swing" / "Level up your game"
   /\b(transform|change|fix|cure|level up|improve|levelup) (my|your|the) (game|swing|drive|short game|putting|chipping|driving|round)\b/i,
