@@ -136,18 +136,26 @@ export default async function Home() {
   return (
     <main className="min-h-dvh bg-zinc-50 dark:bg-black">
       <div className="mx-auto max-w-5xl px-6 py-16">
-        <header className="mb-10 max-w-2xl">
-          <p className="text-sm font-medium uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-            Golf YouTube Search
-          </p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
-            Find golf videos by course.
-          </h1>
-          <p className="mt-3 text-zinc-600 dark:text-zinc-400">
-            Type any course name. The index pulls courses out of video titles,
-            descriptions, and auto-captions across {counts.channels} channels and{" "}
-            {counts.videos.toLocaleString()} videos.
-          </p>
+        <header className="mb-10 flex items-start justify-between gap-6">
+          <div className="max-w-2xl">
+            <p className="text-sm font-medium uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+              Golf YouTube Search
+            </p>
+            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+              Find golf videos by course.
+            </h1>
+            <p className="mt-3 text-zinc-600 dark:text-zinc-400">
+              Type any course name. The index pulls courses out of video titles,
+              descriptions, and auto-captions across {counts.channels} channels and{" "}
+              {counts.videos.toLocaleString()} videos.
+            </p>
+          </div>
+          <Link
+            href="/map"
+            className="shrink-0 rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm font-medium text-zinc-900 transition-colors hover:border-emerald-400 hover:bg-emerald-50 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-50 dark:hover:border-emerald-600 dark:hover:bg-emerald-950/30"
+          >
+            🗺️ View map
+          </Link>
         </header>
 
         <div className="mb-12">

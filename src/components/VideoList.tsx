@@ -91,22 +91,60 @@ export function VideoList({
               className="overflow-hidden rounded-lg border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950"
             >
               {isPlaying ? (
-                <div className="aspect-video w-full bg-black">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${v.ytVideoId}?autoplay=1`}
-                    title={v.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="h-full w-full border-0"
-                  />
-                </div>
+                <>
+                  <div className="aspect-video w-full bg-black">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${v.ytVideoId}?autoplay=1`}
+                      title={v.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="h-full w-full border-0"
+                    />
+                  </div>
+                  <div className="flex items-start justify-between gap-3 px-4 py-3">
+                    <div className="min-w-0 flex-1">
+                      <a
+                        href={`https://www.youtube.com/watch?v=${v.ytVideoId}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block text-sm font-medium leading-snug text-zinc-900 hover:text-emerald-600 dark:text-zinc-50 dark:hover:text-emerald-400"
+                      >
+                        {v.title}
+                      </a>
+                      <p className="mt-1 flex flex-wrap items-center gap-x-2 text-xs text-zinc-500 dark:text-zinc-500">
+                        <span className="truncate">{v.channelName ?? "—"}</span>
+                        <span>·</span>
+                        <span>{formatDate(v.publishedAt)}</span>
+                        {showMatchedCourse && v.matchedCourseName && v.matchedCourseSlug && (
+                          <>
+                            <span>·</span>
+                            <a
+                              href={`/course/${v.matchedCourseSlug}`}
+                              className="rounded bg-zinc-100 px-1.5 py-0.5 text-zinc-700 hover:bg-emerald-100 hover:text-emerald-700 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-emerald-950/40 dark:hover:text-emerald-300"
+                            >
+                              {v.matchedCourseName}
+                            </a>
+                          </>
+                        )}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setPlayingId(null)}
+                      className="shrink-0 rounded-md border border-zinc-200 bg-white px-2 py-1 text-xs text-zinc-600 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800"
+                      aria-label="Collapse video"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </>
               ) : (
-                <button
-                  type="button"
-                  onClick={() => setPlayingId(v.ytVideoId)}
-                  className="group block w-full"
-                >
-                  <div className="relative aspect-video w-full overflow-hidden bg-zinc-100 dark:bg-zinc-900">
+                <div className="flex items-stretch gap-3 p-3">
+                  <button
+                    type="button"
+                    onClick={() => setPlayingId(v.ytVideoId)}
+                    className="group relative block aspect-video w-40 shrink-0 overflow-hidden rounded bg-zinc-100 sm:w-48 dark:bg-zinc-900"
+                  >
                     {v.thumbnailUrl && (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
@@ -116,53 +154,52 @@ export function VideoList({
                         loading="lazy"
                       />
                     )}
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/20">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-black/70 backdrop-blur-sm transition-transform group-hover:scale-110">
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/30">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-black/70 opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="white"
-                          className="ml-1 h-6 w-6"
+                          className="ml-0.5 h-4 w-4"
                         >
                           <path d="M8 5v14l11-7z" />
                         </svg>
                       </div>
                     </div>
-                  </div>
-                </button>
-              )}
-
-              <div className="px-4 py-3">
-                <a
-                  href={`https://www.youtube.com/watch?v=${v.ytVideoId}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-sm font-medium leading-snug text-zinc-900 hover:text-emerald-600 dark:text-zinc-50 dark:hover:text-emerald-400"
-                >
-                  {v.title}
-                </a>
-                <p className="mt-1 flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-500">
-                  <span className="truncate">{v.channelName ?? "—"}</span>
-                  <span>·</span>
-                  <span>{formatDate(v.publishedAt)}</span>
-                  {showMatchedCourse && v.matchedCourseName && v.matchedCourseSlug && (
-                    <>
+                  </button>
+                  <div className="min-w-0 flex-1 self-center">
+                    <a
+                      href={`https://www.youtube.com/watch?v=${v.ytVideoId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="line-clamp-2 block text-sm font-medium leading-snug text-zinc-900 hover:text-emerald-600 dark:text-zinc-50 dark:hover:text-emerald-400"
+                    >
+                      {v.title}
+                    </a>
+                    <p className="mt-1 flex flex-wrap items-center gap-x-2 text-xs text-zinc-500 dark:text-zinc-500">
+                      <span className="truncate">{v.channelName ?? "—"}</span>
                       <span>·</span>
-                      <a
-                        href={`/course/${v.matchedCourseSlug}`}
-                        className="rounded bg-zinc-100 px-1.5 py-0.5 text-zinc-700 hover:bg-emerald-100 hover:text-emerald-700 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-emerald-950/40 dark:hover:text-emerald-300"
-                      >
-                        {v.matchedCourseName}
-                      </a>
-                    </>
-                  )}
-                </p>
-                {v.evidence && (
-                  <p className="mt-2 line-clamp-2 text-xs italic text-zinc-500 dark:text-zinc-500">
-                    “{v.evidence}”
-                  </p>
-                )}
-              </div>
+                      <span>{formatDate(v.publishedAt)}</span>
+                      {showMatchedCourse && v.matchedCourseName && v.matchedCourseSlug && (
+                        <>
+                          <span>·</span>
+                          <a
+                            href={`/course/${v.matchedCourseSlug}`}
+                            className="rounded bg-zinc-100 px-1.5 py-0.5 text-zinc-700 hover:bg-emerald-100 hover:text-emerald-700 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-emerald-950/40 dark:hover:text-emerald-300"
+                          >
+                            {v.matchedCourseName}
+                          </a>
+                        </>
+                      )}
+                    </p>
+                    {v.evidence && (
+                      <p className="mt-1.5 line-clamp-1 text-xs italic text-zinc-500 dark:text-zinc-500">
+                        “{v.evidence}”
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
             </li>
           );
         })}
