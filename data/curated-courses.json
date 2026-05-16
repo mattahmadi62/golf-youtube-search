@@ -202,5 +202,10 @@
   {"name": "Top of the Rock Golf Course", "aliases": ["Top of the Rock"], "slug": "top-of-the-rock", "state": "MO", "parent": "big-cedar-lodge"},
   {"name": "Ozark National Golf Course", "aliases": ["Ozark National"], "slug": "ozark-national", "state": "MO", "parent": "big-cedar-lodge"},
   {"name": "Primland Resort", "aliases": ["Primland", "Primland Golf Resort", "Highland Course at Primland"], "slug": "primland-resort", "state": "VA"},
-  {"name": "Omni La Costa Resort", "aliases": ["Omni La Costa", "La Costa Resort", "La Costa", "La Costa Omni Resort Golf Course", "La Costa Champions Course", "La Costa Legends Course"], "slug": "omni-la-costa-resort", "state": "CA"}
+  {"name": "Omni La Costa Resort", "aliases": ["Omni La Costa", "La Costa Resort", "La Costa", "La Costa Omni Resort Golf Course", "La Costa Champions Course", "La Costa Legends Course"], "slug": "omni-la-costa-resort", "state": "CA"},
+  {"name": "Sherwood Country Club", "aliases": ["Sherwood", "Sherwood CC"], "slug": "sherwood-country-club", "state": "CA"},
+  {"name": "Sandpiper Golf Club", "aliases": ["Sandpiper", "Sandpiper Golf Course"], "slug": "sandpiper-golf-club", "state": "CA"},
+  {"name": "North Ranch Country Club", "aliases": ["North Ranch", "North Ranch CC"], "slug": "north-ranch-country-club", "state": "CA"},
+  {"name": "Lake Merced Golf Club", "aliases": ["Lake Merced", "Lake Merced Country Club", "Lake Merced Golf and Country Club", "Lake Merced G&CC"], "slug": "lake-merced-golf-club", "state": "CA"},
+  {"name": "Moorpark Country Club", "aliases": ["Moorpark", "Moorpark CC"], "slug": "moorpark-country-club", "state": "CA"}
 ]
