@@ -43,7 +43,11 @@ const HARD_SKIP_PATTERNS: RegExp[] = [
   /\b(testing|reviewing|comparing|fitting) (the |a |new |my |these )?(driver|iron|irons|wedge|wedges|putter|putters|hybrid|hybrids)\b/i,
 
   // Brand-led equipment titles ("TaylorMade Stealth Driver Review", "PING G430 Iron")
-  /\b(taylormade|callaway|titleist|mizuno|ping|pxg|cobra|wilson|srixon|cleveland|bridgestone|honma|tour edge|cobra puma|vice|onCore|snell)\b.*\b(driver|iron|irons|wedge|wedges|putter|putters|hybrid|fairway|wood|woods|ball|balls)\b/i,
+  /\b(taylormade|callaway|titleist|mizuno|ping|pxg|cobra|wilson|srixon|cleveland|bridgestone|honma|tour edge|cobra puma|vice|onCore|snell|mclaren|sub\s*70|stix|maxfli|miura|epon)\b.*\b(driver|iron|irons|wedge|wedges|putter|putters|hybrid|fairway|wood|woods|ball|balls|clubs?|set of clubs|equipment|bag|irons set)\b/i,
+
+  // "Played/testing/using with [the] new [equipment]" — e.g.
+  // "I played with the NEW McLaren Golf Clubs!"
+  /\b(played|playing|hit|hitting|tested|testing|tried|trying|used|using) (with )?(the |my |a |an |brand |these )?(brand )?new (\w+\s+){0,3}(clubs?|driver|drivers|iron|irons|wedge|wedges|putter|putters|hybrid|hybrids|equipment|set of clubs|bag|gear|golf clubs?)\b/i,
 
   // "BEST/WORST DRIVERS in golf", "best putter ever" — ranking-style equipment
   /\b(best|worst|cheapest|most expensive|longest|shortest) (drivers?|irons?|wedges?|putters?|hybrids?|balls?|golf bags?|fairway woods?|woods?)\b/i,
