@@ -46,7 +46,20 @@ const HARD_SKIP_PATTERNS: RegExp[] = [
   /\b(taylormade|callaway|titleist|mizuno|ping|pxg|cobra|wilson|srixon|cleveland|bridgestone|honma|tour edge|cobra puma|vice|onCore|snell)\b.*\b(driver|iron|irons|wedge|wedges|putter|putters|hybrid|fairway|wood|woods|ball|balls)\b/i,
 
   // "BEST/WORST DRIVERS in golf", "best putter ever" — ranking-style equipment
-  /\b(best|worst|cheapest|most expensive|longest|shortest) (drivers?|irons?|wedges?|putters?|hybrids?|balls?|golf bags?)\b/i,
+  /\b(best|worst|cheapest|most expensive|longest|shortest) (drivers?|irons?|wedges?|putters?|hybrids?|balls?|golf bags?|fairway woods?|woods?)\b/i,
+
+  // "Picking the best fairway wood", "I choose my new driver", "Choosing a driver"
+  /\b(pick(ing)?|chose|choose|choosing|select(ing)?|selected) (the |a |my |your |new )?(best |right |perfect |new )?(driver|iron|irons|wedge|wedges|putter|putters|hybrid|hybrids|ball|balls|fairway wood|fairway|woods?)\b/i,
+
+  // Buying / fitting guides ("8 mistakes when buying a driver", "What to look for when choosing irons")
+  /\b(mistakes|errors|things|tips|what to know|guide|guides) (when|while|to know|to avoid|for) (buying|choosing|picking|fitting|using|getting)/i,
+  /\b(buying|fitting) (a|an|the|my|your|new)? (driver|iron|wedge|putter|hybrid|ball|fairway wood)\b/i,
+
+  // "This X is about to transform my game" / "How I improved my swing" / "Level up your game"
+  /\b(transform|change|fix|cure|level up|improve|levelup) (my|your|the) (game|swing|drive|short game|putting|chipping|driving|round)\b/i,
+  /\bhow i (improved|improve|lowered|dropped|cut|added|gained|increased|fixed|stopped|cured)\b/i,
+  /\bimprove your (game|swing|drive|short game|putting|chipping|score|handicap|round)\b/i,
+  /\b(level up|elevate) your (game|swing|drive|short game|putting)\b/i,
 
   // Distance / launch monitor tests (almost always equipment, not course play)
   /\b(distance test|carry test|launch monitor)\b/i,
