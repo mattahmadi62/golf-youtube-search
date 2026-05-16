@@ -235,6 +235,25 @@ export default async function CoursePage({ params }: PageProps) {
             </div>
           </dl>
         )}
+
+        {indexed.length > 0 && (
+          <div className="mt-16 border-t border-zinc-200 pt-6 dark:border-zinc-800">
+            <p className="text-xs text-zinc-500 dark:text-zinc-500">
+              Spot a video that wasn&apos;t actually filmed here?{" "}
+              <a
+                href={`mailto:feedback@caddiereel.com?subject=${encodeURIComponent(
+                  `Bad match on ${course.name}`,
+                )}&body=${encodeURIComponent(
+                  `Course: ${course.name}\nURL: https://caddiereel.com/course/${course.slug}\n\nWhich video is wrong (paste the YouTube link), and why:\n\n`,
+                )}`}
+                className="font-medium text-emerald-600 underline-offset-2 hover:underline dark:text-emerald-400"
+              >
+                Report a bad match
+              </a>
+              .
+            </p>
+          </div>
+        )}
       </div>
     </main>
   );
