@@ -326,6 +326,34 @@ export default async function Home() {
 
         <Divider />
 
+        {/* ─── manifesto ─── */}
+        <section className="mx-auto max-w-6xl px-6 py-20">
+          <SectionLabel>Why courses?</SectionLabel>
+          <h2 className="mt-3 max-w-3xl text-3xl leading-tight text-[#1F2A20] sm:text-4xl md:text-5xl">
+            In golf, the course is the{" "}
+            <em className="font-normal italic text-[#1F4D32]">star</em>.
+          </h2>
+          <div
+            className="mt-8 max-w-2xl space-y-5 text-base leading-relaxed text-[#3A3A33] sm:text-lg"
+            style={{ fontFamily: "var(--font-geist-sans)" }}
+          >
+            <p>
+              Augusta. St Andrews. Pinehurst No. 2. Pebble Beach. The majors
+              prove it — golf is the rare sport where the venue is a character
+              in its own right, not a backdrop. People tune in for the course
+              as much as the leaderboard.
+            </p>
+            <p>
+              Most golf sites index by player or channel. We do it the other
+              way: every round, organized by where it was played — so you can
+              follow the courses you love through the eyes of everyone who's
+              filmed there.
+            </p>
+          </div>
+        </section>
+
+        <Divider />
+
         {/* ─── map ─── */}
         {mapCourses.length > 0 && (
           <section id="map" className="mx-auto max-w-6xl px-6 py-20">
