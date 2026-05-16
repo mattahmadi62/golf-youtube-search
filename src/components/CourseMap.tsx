@@ -50,7 +50,13 @@ function FitBounds({ courses }: { courses: MapCourse[] }) {
   return null;
 }
 
-export function CourseMap({ courses }: { courses: MapCourse[] }) {
+export function CourseMap({
+  courses,
+  hideFilter = false,
+}: {
+  courses: MapCourse[];
+  hideFilter?: boolean;
+}) {
   const [selectedState, setSelectedState] = useState<string>("");
 
   const states = useMemo(() => {
@@ -73,34 +79,36 @@ export function CourseMap({ courses }: { courses: MapCourse[] }) {
 
   return (
     <div className="flex h-full flex-col">
-      <div className="mb-3 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <label
-            htmlFor="state-filter"
-            className="text-sm text-zinc-600 dark:text-zinc-400"
-          >
-            Filter:
-          </label>
-          <select
-            id="state-filter"
-            value={selectedState}
-            onChange={(e) => setSelectedState(e.target.value)}
-            className="rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-sm text-zinc-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50"
-          >
-            <option value="">All states ({courses.length})</option>
-            {states.map(({ state, count }) => (
-              <option key={state} value={state}>
-                {state} ({count})
-              </option>
-            ))}
-          </select>
+      {!hideFilter && (
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <label
+              htmlFor="state-filter"
+              className="text-sm text-zinc-600 dark:text-zinc-400"
+            >
+              Filter:
+            </label>
+            <select
+              id="state-filter"
+              value={selectedState}
+              onChange={(e) => setSelectedState(e.target.value)}
+              className="rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-sm text-zinc-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50"
+            >
+              <option value="">All states ({courses.length})</option>
+              {states.map(({ state, count }) => (
+                <option key={state} value={state}>
+                  {state} ({count})
+                </option>
+              ))}
+            </select>
+          </div>
+          <p className="text-xs text-zinc-500 dark:text-zinc-500">
+            Showing {visible.length} of {courses.length}
+          </p>
         </div>
-        <p className="text-xs text-zinc-500 dark:text-zinc-500">
-          Showing {visible.length} of {courses.length}
-        </p>
-      </div>
+      )}
 
-      <div className="relative flex-1 overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800">
+      <div className="relative flex-1 overflow-hidden rounded-lg border border-[#1F4D32]/20 dark:border-zinc-800">
         <MapContainer
           bounds={US_BOUNDS}
           className="h-full w-full"

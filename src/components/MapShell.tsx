@@ -15,6 +15,12 @@ const CourseMap = dynamic(
   },
 );
 
-export function MapShell({ courses }: { courses: MapCourse[] }) {
-  return <CourseMap courses={courses} />;
+export function MapShell({
+  courses,
+  hideFilter,
+}: {
+  courses: MapCourse[];
+  hideFilter?: boolean;
+}) {
+  return <CourseMap courses={courses} hideFilter={hideFilter} />;
 }

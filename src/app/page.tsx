@@ -1,5 +1,7 @@
 import { and, desc, eq, isNull, sql } from "drizzle-orm";
 import Link from "next/link";
+import type { MapCourse } from "@/components/CourseMap";
+import { MapShell } from "@/components/MapShell";
 import { SearchBox } from "@/components/SearchBox";
 import { db } from "@/db";
 import {
@@ -92,6 +94,18 @@ async function getOverview() {
     .orderBy(desc(videos.publishedAt))
     .limit(8);
 
+  const mapCourses = (await db.execute(sql`
+    SELECT
+      c.id, c.slug, c.name, c.state, c.country,
+      c.lat::float8 AS lat, c.lng::float8 AS lng,
+      c.is_curated AS "isCurated",
+      (SELECT COUNT(*)::int FROM video_courses WHERE course_id = c.id) AS "videoCount"
+    FROM courses c
+    WHERE c.lat IS NOT NULL AND c.lng IS NOT NULL
+      AND EXISTS (SELECT 1 FROM video_courses WHERE course_id = c.id)
+    ORDER BY "videoCount" DESC
+  `)) as unknown as { rows: MapCourse[] };
+
   return {
     counts: {
       courses: coursesCount[0]?.count ?? 0,
@@ -107,6 +121,7 @@ async function getOverview() {
     featured,
     channels: channelRows,
     recent,
+    mapCourses: mapCourses.rows,
   };
 }
 
@@ -129,7 +144,7 @@ function formatDate(d: Date | string | null): string {
 }
 
 export default async function Home() {
-  const { counts, featured, channels: channelList, recent } = await getOverview();
+  const { counts, featured, channels: channelList, recent, mapCourses } = await getOverview();
 
   // The four headline numbers — chosen to convey scale + signal.
   const headline = [
@@ -306,6 +321,41 @@ export default async function Home() {
                 </li>
               ))}
             </ul>
+          </section>
+        )}
+
+        <Divider />
+
+        {/* ─── map ─── */}
+        {mapCourses.length > 0 && (
+          <section id="map" className="mx-auto max-w-6xl px-6 py-20">
+            <SectionLabel>The territory</SectionLabel>
+            <h2 className="mt-3 max-w-3xl text-3xl leading-tight text-[#1F2A20] sm:text-4xl md:text-5xl">
+              Every course we've{" "}
+              <em className="font-normal italic text-[#1F4D32]">indexed</em>,
+              pinned where it is.
+            </h2>
+            <p
+              className="mt-4 max-w-xl text-sm text-[#3A3A33]"
+              style={{ fontFamily: "var(--font-geist-sans)" }}
+            >
+              {mapCourses.length.toLocaleString()} courses across the US, UK,
+              and Ireland. Click any pin for the videos.
+            </p>
+
+            <div className="mt-10 h-[500px] overflow-hidden rounded-2xl border border-[#1F4D32]/15 bg-[#F4F1EA]">
+              <MapShell courses={mapCourses} hideFilter />
+            </div>
+
+            <div className="mt-6">
+              <Link
+                href="/map"
+                className="inline-flex items-center gap-2 text-sm font-medium text-[#1F4D32] underline-offset-4 hover:underline"
+                style={{ fontFamily: "var(--font-geist-sans)" }}
+              >
+                Explore the full map →
+              </Link>
+            </div>
           </section>
         )}
 

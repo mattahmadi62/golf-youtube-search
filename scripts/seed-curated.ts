@@ -16,6 +16,8 @@ type CuratedEntry = {
   state: string | null;
   parent?: string; // slug of the parent course (for multi-course resorts)
   country?: string; // ISO country code (default "US")
+  lat?: number;
+  lng?: number;
 };
 
 async function loadCurated(): Promise<CuratedEntry[]> {
@@ -105,6 +107,8 @@ async function main() {
           slug: useSlug,
           state: entry.state ?? undefined,
           isCurated: true,
+          ...(entry.lat !== undefined ? { lat: entry.lat.toString() } : {}),
+          ...(entry.lng !== undefined ? { lng: entry.lng.toString() } : {}),
         })
         .where(eq(courses.id, existingId));
 
@@ -121,6 +125,8 @@ async function main() {
             state: entry.state,
             country: entry.country ?? "US",
             isCurated: true,
+            lat: entry.lat?.toString(),
+            lng: entry.lng?.toString(),
           })
           .onConflictDoUpdate({
             target: courses.slug,
@@ -130,6 +136,8 @@ async function main() {
               state: entry.state ?? undefined,
               country: entry.country ?? "US",
               isCurated: true,
+              ...(entry.lat !== undefined ? { lat: entry.lat.toString() } : {}),
+              ...(entry.lng !== undefined ? { lng: entry.lng.toString() } : {}),
             },
           });
         inserted++;
