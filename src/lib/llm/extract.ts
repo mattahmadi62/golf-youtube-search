@@ -24,18 +24,29 @@ export type ExtractionResult = z.infer<typeof ExtractionResultSchema>;
 
 const SYSTEM_PROMPT = `You extract golf course names from YouTube video metadata for a search index.
 
-Given a video's title, description, and auto-captions, identify every golf course where the players actually play in this video. For each course, return:
+Given a video's title, description, and auto-captions, identify every golf course where the players actually play *in this specific video*. For each course, return:
 - name: the course name as referenced in the text (e.g., "Pebble Beach Golf Links", "Saticoy CC", "Augusta National")
 - evidence: a short snippet (10-40 words) from the source text showing the mention
-- confidence: 0..1 — how certain you are the players actually played here
+- confidence: 0..1 — how certain you are the players actually played here in this video
 
-Rules:
-- ONLY return courses where players actually play in this video. Skip courses mentioned in passing, in equipment talk, in tournament discussion on TV, or named-but-not-played.
-- If a video covers multiple rounds at different courses (golf trip, "play 18 courses in a week" content), return all of them.
+Critical rules:
+- ONLY return courses where players actually play *during this video's recording*. The course must be the SETTING of the video, not just mentioned.
+- DO NOT extract courses that are referenced only as:
+  · A past memory ("I played there in high school", "we used to come here years ago", "back when I was a junior")
+  · A comparison or analogy ("this is harder than 17 at Sawgrass", "reminds me of Augusta", "feels like a links course", "similar to Pebble")
+  · TV/tournament discussion ("Rory's playing the Open at Royal Liverpool this week", "the Masters is at Augusta")
+  · An aspirational or hypothetical ("I'd love to play Cypress someday", "if you ever go to Pinehurst…")
+  · Equipment/swing context ("I used my new driver at Pebble last month")
+- If the video's location is never explicitly stated in title, description, or captions, and the only course references are in the above contexts, return an EMPTY array. It's better to extract nothing than to extract a wrong course.
+- Look for present-tense, in-the-moment language as the strongest signal: "we're playing here at X", "today at X", "welcome to X", "I'm on the X tee right now", "this is hole 4 at X".
+- If a video covers multiple rounds at different courses (golf trip, "play 18 courses in a week"), return all of them.
 - Use the course name as it appears in the source. Don't normalize aggressively — leave "TPC Sawgrass" as "TPC Sawgrass", not "Tournament Players Club Sawgrass".
 - For multi-course resorts (Bandon Dunes, Streamsong, Pinehurst), return the specific course (e.g., "Pacific Dunes") when identifiable. If only the resort is named, return the resort.
-- Confidence calibration: 0.9+ only when explicitly stated (e.g., "Today we're playing X"). 0.6-0.8 when strongly implied. Lower if uncertain — those go to review.
-- If no courses are identifiable, return an empty array.
+- Confidence calibration:
+  · 0.9+ only when the video's setting at this course is explicit and unambiguous.
+  · 0.6-0.8 when strongly implied but not stated outright.
+  · Below 0.6 — anything ambiguous; those go to a review queue. Better to lowball confidence than overcommit.
+- If no courses are identifiable as the video's setting, return an empty array. An empty array is a valid and frequently correct answer.
 
 The text comes from auto-captions, which often have transcription errors and inconsistent capitalization. Treat phonetic spellings charitably (e.g., "Sat-i-coy" → "Saticoy"). Course names ARE often misheard (e.g., "Pine Valley" → "Pine Bali") — when a word sequence is close to a known course name in context, prefer the real course name in your output.`;
 
