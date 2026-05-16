@@ -15,6 +15,7 @@ type CuratedEntry = {
   slug: string;
   state: string | null;
   parent?: string; // slug of the parent course (for multi-course resorts)
+  country?: string; // ISO country code (default "US")
 };
 
 async function loadCurated(): Promise<CuratedEntry[]> {
@@ -118,7 +119,7 @@ async function main() {
             aliases: entry.aliases,
             slug: entry.slug,
             state: entry.state,
-            country: "US",
+            country: entry.country ?? "US",
             isCurated: true,
           })
           .onConflictDoUpdate({
@@ -127,6 +128,7 @@ async function main() {
               name: entry.name,
               aliases: entry.aliases,
               state: entry.state ?? undefined,
+              country: entry.country ?? "US",
               isCurated: true,
             },
           });

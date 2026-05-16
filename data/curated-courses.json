@@ -20,6 +20,7 @@
   { "name": "Cuscowilla Golf Club", "aliases": ["Cuscowilla"], "slug": "cuscowilla", "state": "GA" },
 
   { "name": "Solina Golf Club", "aliases": ["Selena Golf Club", "Selena"], "slug": "solina-golf-club", "state": "SC" },
+  { "name": "Country Club of Lexington", "aliases": ["Country Club Lexington", "CC of Lexington"], "slug": "country-club-of-lexington", "state": "SC" },
 
   { "name": "Pine Valley Golf Club", "aliases": ["Pine Valley"], "slug": "pine-valley-golf-club", "state": "NJ" },
   { "name": "Liberty National Golf Club", "aliases": ["Liberty National"], "slug": "liberty-national-golf-club", "state": "NJ" },
@@ -151,5 +152,36 @@
   { "name": "Palm Beach National Golf Club", "aliases": ["Palm Beach National"], "slug": "palm-beach-national", "state": "FL" },
   { "name": "BallenIsles Country Club", "aliases": ["BallenIsles", "Ballen Isles", "Balon Isles"], "slug": "ballenisles", "state": "FL" },
   { "name": "Rotonda Golf and Country Club", "aliases": ["Rotonda", "Rotunda Golf and Country Club", "Rotonda Golf & Country Club"], "slug": "rotonda", "state": "FL" },
-  { "name": "Arroyo Trabuco Golf Club", "aliases": ["Arroyo Trabuco"], "slug": "arroyo-trabuco", "state": "CA" }
+  { "name": "Arroyo Trabuco Golf Club", "aliases": ["Arroyo Trabuco"], "slug": "arroyo-trabuco", "state": "CA" },
+
+  { "name": "Torrey Pines Golf Course", "aliases": ["Torrey Pines", "Tory Pines"], "slug": "torrey-pines", "state": "CA" },
+  { "name": "Chambers Bay", "aliases": [], "slug": "chambers-bay", "state": "WA" },
+  { "name": "Champions Gate Golf Resort", "aliases": ["Champions Gate", "ChampionsGate"], "slug": "champions-gate", "state": "FL" },
+
+  { "name": "St Andrews Old Course", "aliases": ["St Andrews", "St Andrews Links", "The Old Course"], "slug": "st-andrews-old-course", "state": "Scotland", "country": "GB" },
+  { "name": "Royal Troon Golf Club", "aliases": ["Royal Troon"], "slug": "royal-troon", "state": "Scotland", "country": "GB" },
+  { "name": "Carnoustie Golf Links", "aliases": ["Carnoustie", "Kanushi"], "slug": "carnoustie", "state": "Scotland", "country": "GB" },
+  { "name": "Prestwick Golf Club", "aliases": ["Prestwick"], "slug": "prestwick-golf-club", "state": "Scotland", "country": "GB" },
+  { "name": "Dundonald Links", "aliases": ["Dundonald"], "slug": "dundonald-links", "state": "Scotland", "country": "GB" },
+  { "name": "Crail Golfing Society", "aliases": ["Crail"], "slug": "crail-golfing-society", "state": "Scotland", "country": "GB" },
+  { "name": "Muirfield", "aliases": ["The Honourable Company of Edinburgh Golfers"], "slug": "muirfield", "state": "Scotland", "country": "GB" },
+
+  { "name": "Royal Birkdale Golf Club", "aliases": ["Royal Birkdale"], "slug": "royal-birkdale", "state": "England", "country": "GB" },
+  { "name": "Royal Liverpool Golf Club", "aliases": ["Royal Liverpool", "Hoylake", "Hoy Lake"], "slug": "royal-liverpool", "state": "England", "country": "GB" },
+  { "name": "Royal Lytham & St Annes", "aliases": ["Royal Lytham", "Royal Lytham and St Annes"], "slug": "royal-lytham", "state": "England", "country": "GB" },
+  { "name": "Royal St George's Golf Club", "aliases": ["Royal St George's", "Royal St Georges"], "slug": "royal-st-georges", "state": "England", "country": "GB" },
+  { "name": "Wentworth Club", "aliases": ["Wentworth"], "slug": "wentworth", "state": "England", "country": "GB" },
+  { "name": "The Belfry", "aliases": ["Belfry"], "slug": "the-belfry", "state": "England", "country": "GB" },
+  { "name": "JCB Golf and Country Club", "aliases": ["JCB"], "slug": "jcb-golf-country-club", "state": "England", "country": "GB" },
+  { "name": "The Grove Golf Resort", "aliases": ["The Grove"], "slug": "the-grove", "state": "England", "country": "GB" },
+  { "name": "St Annes Old Links", "aliases": ["St Anne's Old Links"], "slug": "st-annes-old-links", "state": "England", "country": "GB" },
+  { "name": "Formby Golf Club", "aliases": ["Formby"], "slug": "formby-golf-club", "state": "England", "country": "GB" },
+  { "name": "Formby Ladies Golf Club", "aliases": ["Formby Ladies"], "slug": "formby-ladies", "state": "England", "country": "GB" },
+  { "name": "Walton Heath Golf Club", "aliases": ["Walton Heath"], "slug": "walton-heath", "state": "England", "country": "GB" },
+  { "name": "Bearwood Lakes Golf Club", "aliases": ["Bearwood Lakes"], "slug": "bearwood-lakes", "state": "England", "country": "GB" },
+  { "name": "Centurion Club", "aliases": ["Centurion"], "slug": "centurion-club", "state": "England", "country": "GB" },
+  { "name": "Close House", "aliases": ["Close House Golf"], "slug": "close-house", "state": "England", "country": "GB" },
+
+  { "name": "Royal County Down", "aliases": [], "slug": "royal-county-down", "state": "Northern Ireland", "country": "GB" },
+  { "name": "Royal Portrush", "aliases": ["Royal Portrush Golf Club"], "slug": "royal-portrush", "state": "Northern Ireland", "country": "GB" }
 ]
