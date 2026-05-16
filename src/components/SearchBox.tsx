@@ -98,6 +98,9 @@ export function SearchBox() {
   return (
     <div ref={containerRef} className="relative w-full">
       <div className="relative">
+        <span className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-lg text-[#1F4D32]/60">
+          ⌕
+        </span>
         <input
           ref={inputRef}
           type="text"
@@ -108,20 +111,20 @@ export function SearchBox() {
           placeholder="Search by course — try Pebble, Saticoy, Pinehurst…"
           autoComplete="off"
           spellCheck={false}
-          className="w-full rounded-lg border border-zinc-300 bg-white px-4 py-3 text-base text-zinc-900 placeholder:text-zinc-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50 dark:placeholder:text-zinc-500"
+          className="w-full rounded-full border border-[#1F4D32]/30 bg-white py-4 pl-12 pr-16 text-base text-[#1F2A20] placeholder:text-[#1F2A20]/40 focus:border-[#1F4D32] focus:outline-none focus:ring-4 focus:ring-[#1F4D32]/10"
         />
-        <kbd className="pointer-events-none absolute right-3 top-1/2 hidden -translate-y-1/2 rounded border border-zinc-200 bg-zinc-50 px-1.5 py-0.5 font-mono text-[10px] text-zinc-500 sm:block dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">
+        <kbd className="pointer-events-none absolute right-4 top-1/2 hidden -translate-y-1/2 rounded bg-[#1F4D32] px-2 py-1 font-mono text-[10px] text-[#F4F1EA] sm:block">
           ⌘K
         </kbd>
       </div>
 
       {open && (
-        <div className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-lg dark:border-zinc-800 dark:bg-zinc-950">
+        <div className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-2xl border border-[#1F4D32]/20 bg-white shadow-xl shadow-[#1F4D32]/5">
           {loading && results.length === 0 && (
-            <div className="px-4 py-3 text-sm text-zinc-500">Searching…</div>
+            <div className="px-4 py-3 text-sm text-[#1F2A20]/60">Searching…</div>
           )}
           {!loading && results.length === 0 && q.trim().length >= 2 && (
-            <div className="px-4 py-3 text-sm text-zinc-500">
+            <div className="px-4 py-3 text-sm text-[#1F2A20]/60">
               No matches. Try a different course name.
             </div>
           )}
@@ -135,34 +138,34 @@ export function SearchBox() {
                       type="button"
                       onMouseEnter={() => setActive(i)}
                       onClick={() => navigate(r)}
-                      className={`flex w-full items-center justify-between px-4 py-3 text-left transition-colors ${
+                      className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-left transition-colors ${
                         isActive
-                          ? "bg-emerald-50 dark:bg-emerald-950/30"
-                          : "hover:bg-zinc-50 dark:hover:bg-zinc-900"
+                          ? "bg-[#F4F1EA]"
+                          : "hover:bg-[#F4F1EA]/50"
                       }`}
                     >
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-2">
-                          <span className="truncate text-sm font-medium text-zinc-900 dark:text-zinc-50">
+                          <span className="truncate text-base font-medium text-[#1F2A20]">
                             {r.name}
                           </span>
                           {r.is_curated && (
-                            <span className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-medium text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">
+                            <span className="rounded-full bg-[#1F4D32]/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[#1F4D32]">
                               Curated
                             </span>
                           )}
                         </div>
-                        <div className="mt-0.5 flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-500">
+                        <div className="mt-0.5 flex items-center gap-2 text-xs text-[#1F2A20]/60">
                           {r.state && <span>{r.state}</span>}
                           {r.parent_name && (
                             <>
                               {r.state && <span>·</span>}
-                              <span>Part of {r.parent_name}</span>
+                              <span className="italic">Part of {r.parent_name}</span>
                             </>
                           )}
                         </div>
                       </div>
-                      <span className="ml-3 shrink-0 font-mono text-xs tabular-nums text-zinc-500 dark:text-zinc-500">
+                      <span className="ml-3 shrink-0 font-mono text-xs tabular-nums text-[#1F4D32]">
                         {r.video_count > 0
                           ? `${r.video_count} ${r.video_count === 1 ? "video" : "videos"}`
                           : "—"}
