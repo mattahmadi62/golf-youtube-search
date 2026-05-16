@@ -244,6 +244,10 @@ export default async function Home() {
             <em className="font-normal italic text-[#1F4D32]">course</em>.
           </h1>
 
+          <p className="mt-6 max-w-2xl text-xl italic leading-snug text-[#1F4D32]/85 sm:text-2xl">
+            Because the course is the story.
+          </p>
+
           <p
             className="mt-8 max-w-xl text-lg leading-relaxed text-[#3A3A33]"
             style={{ fontFamily: "var(--font-geist-sans)" }}
