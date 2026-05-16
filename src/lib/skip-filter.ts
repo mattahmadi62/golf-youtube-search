@@ -57,6 +57,14 @@ const HARD_SKIP_PATTERNS: RegExp[] = [
   /\b(golf|swing|putting|chipping|driving|iron) (lesson|lessons|drill|drills)\b/i,
   /\bgolf (tip|tips|drill|drills)\b/i,
 
+  // Bare "lesson" framing — "Lesson W/", "Lesson with [coach]", "PGA Tour lesson",
+  // "I gave him a lesson", "took a lesson", etc.
+  /\blesson w[/\\]|\blesson (with|from|by)\b/i,
+  /^\s*lesson\b/i,
+  /\b(pga tour|tour pro|world renown coach) lesson\b/i,
+  /\b(gave|gives|giving|got|getting|take|took|taking|teach|teaches|teaching) (him|her|them|me|you|us|.{1,30}) (a |my |the |their |our |some )?lessons?\b/i,
+  /\b(inside look|what (a|an) .{1,20}lesson|first lesson|golf lesson)\b/i,
+
   // Swing / grip / setup analysis ("DAVIS LOVE iii SWING ANALYSIS")
   /\b(swing|grip|setup|alignment|stance|posture|tempo|impact|takeaway|backswing|downswing|release) (analysis|analyzed|breakdown|review)\b/i,
 
