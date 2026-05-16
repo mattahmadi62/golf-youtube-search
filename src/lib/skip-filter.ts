@@ -105,6 +105,11 @@ const HARD_SKIP_PATTERNS: RegExp[] = [
   /\b(golf show|talk show|news show|monday night golf show)\b/i,
   /\blive (broadcast|stream|coverage)\b/i,
 
+  // Interview / "talks golf" / "in conversation with" — podcast-style framing
+  // ("Rick Shiels & Tommy Fleetwood talk golf")
+  /\b(talks?|talking) (golf|to|about|with)\b/i,
+  /\b(in conversation with|sit down with|sits down with|chats? with|chatting with)\b/i,
+
   // Generic year-in-review / introspective format
   /\b(years? on youtube|years? of youtube|i'?ve done youtube)\b/i,
   /\b(here'?s what i'?ve learned|what i learned|lessons learned)\b/i,
