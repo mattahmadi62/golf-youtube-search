@@ -199,6 +199,11 @@ const HARD_SKIP_PATTERNS: RegExp[] = [
 
   // Peter Finch's COVID-era simulator-based creator tournament series
   /\bisolation invitational\b/i,
+
+  // Biographical / podcast-series episode framing — BDS "Perez Vs" series
+  // and similar. "The Story of [person]" is sit-down storytelling, not a round.
+  /\bthe story of\b/i,
+  /\bvs\.?\s+episode\s+\d+\b/i,
 ];
 
 // ============================================================================
