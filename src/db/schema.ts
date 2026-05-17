@@ -30,6 +30,13 @@ export const courses = pgTable(
       (): AnyPgColumn => courses.id,
       { onDelete: "set null" },
     ),
+    // Public-facing course info (sourced from OSM tags and/or manual curation).
+    website: text("website"),
+    phone: text("phone"),
+    address: text("address"),
+    description: text("description"),
+    holeCount: integer("hole_count"),
+    accessType: text("access_type"), // 'public' | 'private' | 'resort' | 'semi-private'
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [

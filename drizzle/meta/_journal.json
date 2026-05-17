@@ -15,6 +15,13 @@
       "when": 1778875382329,
       "tag": "0001_add-parent-course",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1779046711068,
+      "tag": "0002_ordinary_logan",
+      "breakpoints": true
     }
   ]
 }

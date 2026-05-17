@@ -118,9 +118,14 @@ export default async function CoursePage({ params }: PageProps) {
                 Curated
               </span>
             )}
-            {course.osmId && (
+            {course.accessType && (
+              <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium capitalize text-amber-700 dark:bg-amber-950 dark:text-amber-300">
+                {course.accessType.replace("-", " ")}
+              </span>
+            )}
+            {course.holeCount && (
               <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
-                OSM
+                {course.holeCount} holes
               </span>
             )}
           </div>
@@ -133,6 +138,60 @@ export default async function CoursePage({ params }: PageProps) {
           {course.aliases.length > 0 && (
             <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-500">
               Also known as: {course.aliases.join(", ")}
+            </p>
+          )}
+
+          {(course.address || course.phone || course.website) && (
+            <dl className="mt-6 grid grid-cols-1 gap-x-6 gap-y-3 rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-950 sm:grid-cols-2">
+              {course.address && (
+                <div className="sm:col-span-2">
+                  <dt className="text-xs uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
+                    Address
+                  </dt>
+                  <dd className="mt-0.5 text-zinc-900 dark:text-zinc-100">
+                    {course.address}
+                  </dd>
+                </div>
+              )}
+              {course.phone && (
+                <div>
+                  <dt className="text-xs uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
+                    Phone
+                  </dt>
+                  <dd className="mt-0.5">
+                    <a
+                      href={`tel:${course.phone.replace(/\s+/g, "")}`}
+                      className="text-zinc-900 hover:text-emerald-600 dark:text-zinc-100 dark:hover:text-emerald-400"
+                    >
+                      {course.phone}
+                    </a>
+                  </dd>
+                </div>
+              )}
+              {course.website && (
+                <div>
+                  <dt className="text-xs uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
+                    Website
+                  </dt>
+                  <dd className="mt-0.5 truncate">
+                    <a
+                      href={course.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-emerald-600 hover:underline dark:text-emerald-400"
+                    >
+                      {course.website.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                      <span className="ml-1 inline-block translate-y-[-1px] text-xs">↗</span>
+                    </a>
+                  </dd>
+                </div>
+              )}
+            </dl>
+          )}
+
+          {course.description && (
+            <p className="mt-5 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
+              {course.description}
             </p>
           )}
         </div>
