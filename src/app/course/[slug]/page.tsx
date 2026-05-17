@@ -2,6 +2,12 @@ import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { VideoList } from "@/components/VideoList";
+import {
+  Divider,
+  SectionLabel,
+  TopographicPattern,
+  YardageHeader,
+} from "@/components/yardage";
 import { db } from "@/db";
 import { channels, courses, videoCourses, videos } from "@/db/schema";
 
@@ -85,83 +91,120 @@ export default async function CoursePage({ params }: PageProps) {
   const isResort = children.length > 0;
 
   return (
-    <main className="min-h-dvh bg-zinc-50 dark:bg-black">
-      <div className="mx-auto max-w-3xl px-6 py-12">
-        <Link
-          href="/"
-          className="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-50"
-        >
-          ← Home
-        </Link>
+    <main
+      className="relative min-h-dvh overflow-x-hidden"
+      style={{
+        backgroundColor: "#F4F1EA",
+        color: "#1F2A20",
+        fontFamily: "var(--font-fraunces)",
+      }}
+    >
+      <TopographicPattern />
 
-        {parent && (
-          <p className="mt-6 text-xs text-zinc-500 dark:text-zinc-500">
-            Part of{" "}
-            <Link
-              href={`/course/${parent.slug}`}
-              className="font-medium text-emerald-600 hover:underline dark:text-emerald-400"
+      <div className="relative">
+        <YardageHeader />
+
+        {/* ─── course hero ─── */}
+        <section className="mx-auto max-w-4xl px-6 pb-12 pt-12 sm:pt-16">
+          <SectionLabel>
+            {isResort ? "Resort" : parent ? `Part of ${parent.name}` : "Course"}
+          </SectionLabel>
+
+          {parent && (
+            <p
+              className="mt-4 text-sm"
+              style={{ fontFamily: "var(--font-geist-sans)" }}
             >
-              {parent.name}
-            </Link>
-          </p>
-        )}
+              <Link
+                href={`/course/${parent.slug}`}
+                className="text-[#1F4D32] underline-offset-4 hover:underline"
+              >
+                ← {parent.name}
+              </Link>
+            </p>
+          )}
 
-        <div className={parent ? "mt-2" : "mt-8"}>
-          <div className="flex items-center gap-2">
-            {isResort && (
-              <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-950 dark:text-blue-300">
-                Resort · {children.length} courses
-              </span>
-            )}
-            {course.isCurated && (
-              <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">
-                Curated
-              </span>
-            )}
-            {course.accessType && (
-              <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium capitalize text-amber-700 dark:bg-amber-950 dark:text-amber-300">
-                {course.accessType.replace("-", " ")}
-              </span>
-            )}
-            {course.holeCount && (
-              <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
-                {course.holeCount} holes
-              </span>
-            )}
-          </div>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+          <h1 className="mt-6 text-4xl leading-[1.05] tracking-tight text-[#1F2A20] sm:text-5xl md:text-6xl">
             {course.name}
           </h1>
+
           {location && (
-            <p className="mt-1 text-zinc-600 dark:text-zinc-400">{location}</p>
+            <p className="mt-3 text-xl italic leading-snug text-[#1F4D32]/85 sm:text-2xl">
+              {location}
+            </p>
           )}
+
+          {(isResort ||
+            course.isCurated ||
+            course.accessType ||
+            course.holeCount) && (
+            <div
+              className="mt-6 flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-[0.18em]"
+              style={{ fontFamily: "var(--font-geist-sans)" }}
+            >
+              {isResort && (
+                <span className="rounded-full border border-[#1F4D32]/25 bg-white/50 px-3 py-1 text-[#1F4D32]">
+                  Resort · {children.length} courses
+                </span>
+              )}
+              {course.isCurated && (
+                <span className="rounded-full border border-[#1F4D32]/25 bg-white/50 px-3 py-1 text-[#1F4D32]">
+                  Curated
+                </span>
+              )}
+              {course.accessType && (
+                <span className="rounded-full border border-[#1F4D32]/25 bg-white/50 px-3 py-1 capitalize text-[#1F4D32]">
+                  {course.accessType.replace("-", " ")}
+                </span>
+              )}
+              {course.holeCount && (
+                <span className="rounded-full border border-[#1F4D32]/25 bg-white/50 px-3 py-1 text-[#1F4D32]">
+                  {course.holeCount} holes
+                </span>
+              )}
+            </div>
+          )}
+
           {course.aliases.length > 0 && (
-            <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-500">
+            <p
+              className="mt-4 text-xs text-[#3A3A33]"
+              style={{ fontFamily: "var(--font-geist-sans)" }}
+            >
               Also known as: {course.aliases.join(", ")}
             </p>
           )}
 
+          {course.description && (
+            <p
+              className="mt-6 max-w-2xl text-base leading-relaxed text-[#3A3A33] sm:text-lg"
+              style={{ fontFamily: "var(--font-geist-sans)" }}
+            >
+              {course.description}
+            </p>
+          )}
+
           {(course.address || course.phone || course.website) && (
-            <dl className="mt-6 grid grid-cols-1 gap-x-6 gap-y-3 rounded-lg border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-950 sm:grid-cols-2">
+            <dl
+              className="mt-8 grid grid-cols-1 gap-x-8 gap-y-4 rounded-xl border border-[#1F4D32]/15 bg-white/60 p-5 text-sm sm:grid-cols-2"
+              style={{ fontFamily: "var(--font-geist-sans)" }}
+            >
               {course.address && (
                 <div className="sm:col-span-2">
-                  <dt className="text-xs uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
+                  <dt className="text-[10px] uppercase tracking-[0.18em] text-[#1F4D32]">
                     Address
                   </dt>
-                  <dd className="mt-0.5 text-zinc-900 dark:text-zinc-100">
-                    {course.address}
-                  </dd>
+                  <dd className="mt-1 text-[#1F2A20]">{course.address}</dd>
                 </div>
               )}
               {course.phone && (
                 <div>
-                  <dt className="text-xs uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
+                  <dt className="text-[10px] uppercase tracking-[0.18em] text-[#1F4D32]">
                     Phone
                   </dt>
-                  <dd className="mt-0.5">
+                  <dd className="mt-1">
                     <a
                       href={`tel:${course.phone.replace(/\s+/g, "")}`}
-                      className="text-zinc-900 hover:text-emerald-600 dark:text-zinc-100 dark:hover:text-emerald-400"
+                      className="text-[#1F2A20] underline-offset-4 hover:text-[#1F4D32] hover:underline"
                     >
                       {course.phone}
                     </a>
@@ -170,148 +213,158 @@ export default async function CoursePage({ params }: PageProps) {
               )}
               {course.website && (
                 <div>
-                  <dt className="text-xs uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
+                  <dt className="text-[10px] uppercase tracking-[0.18em] text-[#1F4D32]">
                     Website
                   </dt>
-                  <dd className="mt-0.5 truncate">
+                  <dd className="mt-1 truncate">
                     <a
                       href={course.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-emerald-600 hover:underline dark:text-emerald-400"
+                      className="text-[#1F4D32] underline-offset-4 hover:underline"
                     >
-                      {course.website.replace(/^https?:\/\//, "").replace(/\/$/, "")}
-                      <span className="ml-1 inline-block translate-y-[-1px] text-xs">↗</span>
+                      {course.website
+                        .replace(/^https?:\/\//, "")
+                        .replace(/\/$/, "")}
+                      <span className="ml-1 inline-block translate-y-[-1px] text-xs">
+                        ↗
+                      </span>
                     </a>
                   </dd>
                 </div>
               )}
             </dl>
           )}
+        </section>
 
-          {course.description && (
-            <p className="mt-5 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
-              {course.description}
-            </p>
-          )}
-        </div>
-
+        {/* ─── children courses (if resort) ─── */}
         {children.length > 0 && (
-          <div className="mt-8">
-            <h2 className="mb-3 text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
-              Courses at this resort
-            </h2>
-            <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-              {children.map((c) => (
-                <li key={c.slug}>
-                  <Link
-                    href={`/course/${c.slug}`}
-                    className="flex items-center justify-between rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm transition-colors hover:border-emerald-400 hover:bg-emerald-50 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-emerald-600 dark:hover:bg-emerald-950/30"
-                  >
-                    <span className="text-zinc-900 dark:text-zinc-50">{c.name}</span>
-                    <span className="font-mono text-xs tabular-nums text-zinc-500 dark:text-zinc-500">
-                      {c.videoCount}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <>
+            <Divider />
+            <section className="mx-auto max-w-4xl px-6 py-12">
+              <SectionLabel>Courses at this resort</SectionLabel>
+              <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {children.map((c) => (
+                  <li key={c.slug}>
+                    <Link
+                      href={`/course/${c.slug}`}
+                      className="group flex items-baseline justify-between gap-4 rounded-xl border border-[#1F4D32]/15 bg-white/60 px-5 py-4 transition-all hover:border-[#1F4D32] hover:bg-white"
+                    >
+                      <span className="truncate text-base font-medium text-[#1F2A20] group-hover:text-[#1F4D32]">
+                        {c.name}
+                      </span>
+                      <span
+                        className="shrink-0 font-mono text-xs tabular-nums text-[#1F4D32]"
+                        style={{ fontFamily: "var(--font-geist-mono)" }}
+                      >
+                        {c.videoCount}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </>
         )}
 
+        {/* ─── siblings (if sub-course of a resort) ─── */}
         {siblings.length > 0 && (
-          <div className="mt-8">
-            <h2 className="mb-2 text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
-              Other courses at {parent?.name ?? "this resort"}
-            </h2>
-            <ul className="flex flex-wrap gap-2">
-              {siblings.map((s) => (
-                <li key={s.slug}>
-                  <Link
-                    href={`/course/${s.slug}`}
-                    className="rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs text-zinc-700 transition-colors hover:border-emerald-400 hover:bg-emerald-50 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300"
-                  >
-                    {s.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <>
+            <Divider />
+            <section className="mx-auto max-w-4xl px-6 py-12">
+              <SectionLabel>
+                Other courses at {parent?.name ?? "this resort"}
+              </SectionLabel>
+              <ul
+                className="mt-6 flex flex-wrap gap-2"
+                style={{ fontFamily: "var(--font-geist-sans)" }}
+              >
+                {siblings.map((s) => (
+                  <li key={s.slug}>
+                    <Link
+                      href={`/course/${s.slug}`}
+                      className="rounded-full border border-[#1F4D32]/25 bg-white/60 px-3 py-1 text-xs text-[#1F2A20] transition-colors hover:border-[#1F4D32] hover:bg-white"
+                    >
+                      {s.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </>
         )}
 
-        <div className="mt-12">
-          <div className="mb-4 flex items-baseline justify-between">
-            <h2 className="text-sm font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
-              Indexed videos
-            </h2>
+        {/* ─── indexed videos ─── */}
+        <Divider />
+        <section className="mx-auto max-w-4xl px-6 py-12">
+          <div className="flex items-baseline justify-between">
+            <SectionLabel>Videos at this course</SectionLabel>
             {indexed.length > 0 && (
-              <span className="font-mono text-xs tabular-nums text-zinc-500 dark:text-zinc-500">
+              <span
+                className="font-mono text-xs tabular-nums text-[#1F4D32]"
+                style={{ fontFamily: "var(--font-geist-mono)" }}
+              >
                 {indexed.length}
               </span>
             )}
           </div>
 
           {indexed.length === 0 ? (
-            <div className="rounded-lg border border-dashed border-zinc-300 bg-white p-8 text-center dark:border-zinc-800 dark:bg-zinc-950">
-              <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+            <div
+              className="mt-6 rounded-xl border border-dashed border-[#1F4D32]/25 bg-white/40 p-8 text-center"
+              style={{ fontFamily: "var(--font-geist-sans)" }}
+            >
+              <p className="text-sm font-medium text-[#1F2A20]">
                 No videos indexed yet.
               </p>
-              <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-500">
+              <p className="mt-2 text-xs text-[#3A3A33]">
                 Either nothing extracted yet for this course, or our channels
                 haven&apos;t covered it.
               </p>
             </div>
           ) : (
-            <VideoList
-              videos={indexed.map((v) => ({
-                ytVideoId: v.ytVideoId,
-                title: v.title,
-                publishedAt: v.publishedAt,
-                thumbnailUrl: v.thumbnailUrl,
-                channelName: v.channelName,
-                evidence: v.evidence,
-                matchedCourseName: v.matchedCourseName,
-                matchedCourseSlug: v.matchedCourseSlug,
-              }))}
-              showMatchedCourse={isResort}
-            />
+            <div className="mt-6">
+              <VideoList
+                videos={indexed.map((v) => ({
+                  ytVideoId: v.ytVideoId,
+                  title: v.title,
+                  publishedAt: v.publishedAt,
+                  thumbnailUrl: v.thumbnailUrl,
+                  channelName: v.channelName,
+                  evidence: v.evidence,
+                  matchedCourseName: v.matchedCourseName,
+                  matchedCourseSlug: v.matchedCourseSlug,
+                }))}
+                showMatchedCourse={isResort}
+              />
+            </div>
           )}
-        </div>
+        </section>
 
-        {(course.lat || course.lng) && !isResort && (
-          <dl className="mt-12 grid grid-cols-2 gap-4 text-sm">
-            <div>
-              <dt className="text-zinc-500 dark:text-zinc-500">Latitude</dt>
-              <dd className="mt-1 font-mono text-zinc-900 dark:text-zinc-50">
-                {course.lat ?? "—"}
-              </dd>
-            </div>
-            <div>
-              <dt className="text-zinc-500 dark:text-zinc-500">Longitude</dt>
-              <dd className="mt-1 font-mono text-zinc-900 dark:text-zinc-50">
-                {course.lng ?? "—"}
-              </dd>
-            </div>
-          </dl>
-        )}
-
+        {/* ─── footer with report-bad-match ─── */}
         {indexed.length > 0 && (
-          <div className="mt-16 border-t border-zinc-200 pt-6 dark:border-zinc-800">
-            <p className="text-xs text-zinc-500 dark:text-zinc-500">
-              Spot a video that wasn&apos;t actually filmed here?{" "}
-              <a
-                href={`mailto:feedback@caddiereel.com?subject=${encodeURIComponent(
-                  `Bad match on ${course.name}`,
-                )}&body=${encodeURIComponent(
-                  `Course: ${course.name}\nURL: https://caddiereel.com/course/${course.slug}\n\nWhich video is wrong (paste the YouTube link), and why:\n\n`,
-                )}`}
-                className="font-medium text-emerald-600 underline-offset-2 hover:underline dark:text-emerald-400"
-              >
-                Report a bad match
-              </a>
-              .
-            </p>
-          </div>
+          <>
+            <Divider />
+            <section
+              className="mx-auto max-w-4xl px-6 py-10"
+              style={{ fontFamily: "var(--font-geist-sans)" }}
+            >
+              <p className="text-xs text-[#3A3A33]">
+                Spot a video that wasn&apos;t actually filmed here?{" "}
+                <a
+                  href={`mailto:feedback@caddiereel.com?subject=${encodeURIComponent(
+                    `Bad match on ${course.name}`,
+                  )}&body=${encodeURIComponent(
+                    `Course: ${course.name}\nURL: https://caddiereel.com/course/${course.slug}\n\nWhich video is wrong (paste the YouTube link), and why:\n\n`,
+                  )}`}
+                  className="font-medium text-[#1F4D32] underline-offset-4 hover:underline"
+                >
+                  Report a bad match
+                </a>
+                .
+              </p>
+            </section>
+          </>
         )}
       </div>
     </main>

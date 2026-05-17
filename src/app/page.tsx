@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { MapCourse } from "@/components/CourseMap";
 import { MapShell } from "@/components/MapShell";
 import { SearchBox } from "@/components/SearchBox";
+import { Divider, SectionLabel } from "@/components/yardage";
 import { db } from "@/db";
 import {
   channels,
@@ -527,21 +528,3 @@ export default async function Home() {
   );
 }
 
-function Divider() {
-  return (
-    <div className="mx-auto max-w-6xl px-6">
-      <div className="h-px w-full bg-[#1F4D32]/15" />
-    </div>
-  );
-}
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <p
-      className="text-[11px] uppercase tracking-[0.32em] text-[#1F4D32]"
-      style={{ fontFamily: "var(--font-geist-sans)" }}
-    >
-      {children}
-    </p>
-  );
-}

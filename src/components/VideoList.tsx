@@ -24,6 +24,8 @@ function formatDate(d: Date | string | null): string {
   return `${Math.floor(days / 365)}y ago`;
 }
 
+const SANS = { fontFamily: "var(--font-geist-sans)" } as const;
+
 export function VideoList({
   videos,
   showMatchedCourse = false,
@@ -49,14 +51,14 @@ export function VideoList({
   return (
     <>
       {channels.length > 1 && (
-        <div className="mb-4 flex flex-wrap gap-2">
+        <div className="mb-5 flex flex-wrap gap-2" style={SANS}>
           <button
             type="button"
             onClick={() => setChannelFilter(null)}
             className={`rounded-full border px-3 py-1 text-xs transition-colors ${
               channelFilter === null
-                ? "border-emerald-500 bg-emerald-50 text-emerald-700 dark:border-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-300"
-                : "border-zinc-200 bg-white text-zinc-700 hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300"
+                ? "border-[#1F4D32] bg-[#1F4D32] text-[#F4F1EA]"
+                : "border-[#1F4D32]/25 bg-white/60 text-[#1F2A20] hover:border-[#1F4D32] hover:bg-white"
             }`}
           >
             All ({videos.length})
@@ -71,8 +73,8 @@ export function VideoList({
                 onClick={() => setChannelFilter(c)}
                 className={`rounded-full border px-3 py-1 text-xs transition-colors ${
                   isActive
-                    ? "border-emerald-500 bg-emerald-50 text-emerald-700 dark:border-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-300"
-                    : "border-zinc-200 bg-white text-zinc-700 hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300"
+                    ? "border-[#1F4D32] bg-[#1F4D32] text-[#F4F1EA]"
+                    : "border-[#1F4D32]/25 bg-white/60 text-[#1F2A20] hover:border-[#1F4D32] hover:bg-white"
                 }`}
               >
                 {c} ({count})
@@ -82,13 +84,13 @@ export function VideoList({
         </div>
       )}
 
-      <ul className="space-y-3">
+      <ul className="space-y-3" style={SANS}>
         {filtered.map((v) => {
           const isPlaying = playingId === v.ytVideoId;
           return (
             <li
               key={v.ytVideoId}
-              className="overflow-hidden rounded-lg border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950"
+              className="overflow-hidden rounded-xl border border-[#1F4D32]/15 bg-white/70"
             >
               {isPlaying ? (
                 <>
@@ -107,11 +109,11 @@ export function VideoList({
                         href={`https://www.youtube.com/watch?v=${v.ytVideoId}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block text-sm font-medium leading-snug text-zinc-900 hover:text-emerald-600 dark:text-zinc-50 dark:hover:text-emerald-400"
+                        className="block text-sm font-medium leading-snug text-[#1F2A20] hover:text-[#1F4D32]"
                       >
                         {v.title}
                       </a>
-                      <p className="mt-1 flex flex-wrap items-center gap-x-2 text-xs text-zinc-500 dark:text-zinc-500">
+                      <p className="mt-1 flex flex-wrap items-center gap-x-2 text-xs text-[#3A3A33]">
                         <span className="truncate">{v.channelName ?? "—"}</span>
                         <span>·</span>
                         <span>{formatDate(v.publishedAt)}</span>
@@ -120,7 +122,7 @@ export function VideoList({
                             <span>·</span>
                             <a
                               href={`/course/${v.matchedCourseSlug}`}
-                              className="rounded bg-zinc-100 px-1.5 py-0.5 text-zinc-700 hover:bg-emerald-100 hover:text-emerald-700 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-emerald-950/40 dark:hover:text-emerald-300"
+                              className="rounded bg-[#1F4D32]/10 px-1.5 py-0.5 text-[#1F4D32] hover:bg-[#1F4D32]/20"
                             >
                               {v.matchedCourseName}
                             </a>
@@ -131,7 +133,7 @@ export function VideoList({
                     <button
                       type="button"
                       onClick={() => setPlayingId(null)}
-                      className="shrink-0 rounded-md border border-zinc-200 bg-white px-2 py-1 text-xs text-zinc-600 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800"
+                      className="shrink-0 rounded-md border border-[#1F4D32]/25 bg-white/60 px-2 py-1 text-xs text-[#1F2A20] hover:border-[#1F4D32] hover:bg-white"
                       aria-label="Collapse video"
                     >
                       Close
@@ -143,7 +145,7 @@ export function VideoList({
                   <button
                     type="button"
                     onClick={() => setPlayingId(v.ytVideoId)}
-                    className="group relative block aspect-video w-40 shrink-0 overflow-hidden rounded bg-zinc-100 sm:w-48 dark:bg-zinc-900"
+                    className="group relative block aspect-video w-40 shrink-0 overflow-hidden rounded bg-[#F4F1EA] sm:w-48"
                   >
                     {v.thumbnailUrl && (
                       // eslint-disable-next-line @next/next/no-img-element
@@ -172,11 +174,11 @@ export function VideoList({
                       href={`https://www.youtube.com/watch?v=${v.ytVideoId}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="line-clamp-2 block text-sm font-medium leading-snug text-zinc-900 hover:text-emerald-600 dark:text-zinc-50 dark:hover:text-emerald-400"
+                      className="line-clamp-2 block text-sm font-medium leading-snug text-[#1F2A20] hover:text-[#1F4D32]"
                     >
                       {v.title}
                     </a>
-                    <p className="mt-1 flex flex-wrap items-center gap-x-2 text-xs text-zinc-500 dark:text-zinc-500">
+                    <p className="mt-1 flex flex-wrap items-center gap-x-2 text-xs text-[#3A3A33]">
                       <span className="truncate">{v.channelName ?? "—"}</span>
                       <span>·</span>
                       <span>{formatDate(v.publishedAt)}</span>
@@ -185,7 +187,7 @@ export function VideoList({
                           <span>·</span>
                           <a
                             href={`/course/${v.matchedCourseSlug}`}
-                            className="rounded bg-zinc-100 px-1.5 py-0.5 text-zinc-700 hover:bg-emerald-100 hover:text-emerald-700 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-emerald-950/40 dark:hover:text-emerald-300"
+                            className="rounded bg-[#1F4D32]/10 px-1.5 py-0.5 text-[#1F4D32] hover:bg-[#1F4D32]/20"
                           >
                             {v.matchedCourseName}
                           </a>
@@ -193,7 +195,7 @@ export function VideoList({
                       )}
                     </p>
                     {v.evidence && (
-                      <p className="mt-1.5 line-clamp-1 text-xs italic text-zinc-500 dark:text-zinc-500">
+                      <p className="mt-1.5 line-clamp-1 text-xs italic text-[#3A3A33]">
                         “{v.evidence}”
                       </p>
                     )}
@@ -206,7 +208,7 @@ export function VideoList({
       </ul>
 
       {filtered.length === 0 && channelFilter && (
-        <p className="text-sm text-zinc-500 dark:text-zinc-500">
+        <p className="text-sm text-[#3A3A33]" style={SANS}>
           No videos from {channelFilter} for this course.
         </p>
       )}
