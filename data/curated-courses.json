@@ -207,5 +207,6 @@
   {"name": "Sandpiper Golf Club", "aliases": ["Sandpiper", "Sandpiper Golf Course"], "slug": "sandpiper-golf-club", "state": "CA"},
   {"name": "North Ranch Country Club", "aliases": ["North Ranch", "North Ranch CC"], "slug": "north-ranch-country-club", "state": "CA"},
   {"name": "Lake Merced Golf Club", "aliases": ["Lake Merced", "Lake Merced Country Club", "Lake Merced Golf and Country Club", "Lake Merced G&CC"], "slug": "lake-merced-golf-club", "state": "CA"},
-  {"name": "Moorpark Country Club", "aliases": ["Moorpark", "Moorpark CC"], "slug": "moorpark-country-club", "state": "CA"}
+  {"name": "Moorpark Country Club", "aliases": ["Moorpark", "Moorpark CC"], "slug": "moorpark-country-club", "state": "CA"},
+  {"name": "Rustic Canyon Golf Course", "aliases": ["Rustic Canyon", "Rustic Canyon Moorpark"], "slug": "rustic-canyon-golf-course", "state": "CA"}
 ]
