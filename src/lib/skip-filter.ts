@@ -216,6 +216,46 @@ const HARD_SKIP_PATTERNS: RegExp[] = [
   /\b(happy hour|office hours)\b/i,
   /\bweeks?\s+in\s+the\s+life\b/i,
   /\b(pro[\s-]?am|tournament|championship) (recap|preview|coverage|breakdown)\b/i,
+
+  // Gimmick / stunt golf — the bit is the protagonist, not the course.
+  // Mostly Good Good / GM GOLF formats but generalizable.
+  /\bwheel of not ideal\b/i,
+  // Modified / damaged clubs ("we cut clubs in half", "drilled holes in clubs",
+  // "sandpaper on clubs", "vaseline on clubs", "rubber bands on clubs")
+  /\b(cut|drilled|wrap(?:ped)?|sand\s*paper(?:ed)?|vaseline|melted|painted)\b[\w\s]{0,20}\b(clubs?|club\s*face|grooves?)\b/i,
+  // "Playing with N clubs" / "Playing With 20 Inch Clubs"
+  /\bplaying (golf )?with (only )?\d+\s+(inch\s+)?clubs?\b/i,
+  // "Wedges only" / "1 iron only" / "3 wood only" / "60 degree only" / "Driver only" / "Putter only"
+  /\b(wedge|wedges|1\s*iron|1\s*irons|3\s*wood|3\s*woods|driver|drivers|60\s*degree|putter|putters)\s+only\b/i,
+  // "1 club challenge" / "3 Club Challenge" / "14 Club Challenge" / "42 Club Challenge"
+  /\b\d+\s+clubs?\s+(challenge|only)\b/i,
+  // Discount-store club challenges
+  /\b(walmart|dick'?s sporting goods|goodwill|target|costco|amazon|second\s*hand)\b[\w\s]{0,30}\b(golf|clubs?|challenge|budget)\b/i,
+  // "$X budget" club challenges
+  /\$\d+\s+(budget|clubs?|challenge)\b/i,
+  // Glow / night golf gimmicks
+  /\b(glow|night)\s+golf\b/i,
+  // Physical gimmicks
+  /\bblindfolded\b/i,
+  /\b(on|using|with)\s+(only\s+)?(one|1)\s+(arm|leg|hand|foot)\b/i,
+  /\bupside\s+down\b/i,
+  /\bleft\s*-?\s*handed\s+(clubs?|golf)\b/i,
+  // Ball-modification gimmicks (burnt/floating/range/toy balls)
+  /\b(burnt|burned|floating|toy)\s+(golf\s+)?balls?\b/i,
+  /\bwith\s+(a|an)\s+range\s+ball\b/i,
+  // Golf HORSE / TopGolf HORSE games
+  /\bgolf\s+horse\b/i,
+  /\bhorse\s+challenge\b/i,
+  // Adjustable / weird-equipment gimmicks
+  /\badjustable\s+club\b/i,
+  // Shot-style-every-tee gimmicks
+  /\b(stinger|low\s+shot|tee(d|ing)?\s+(it\s+)?up\s+high)\s+(off|on)\s+every\b/i,
+  // Cheapest-possible-golf framing
+  /\bas\s+cheap\s+as\s+possible\b/i,
+  /\bcheap(est)?\s+(golf\s+)?clubs?\b/i,
+  // Random / bizarre matchup formats explicitly framed as challenges
+  /\brandom\s+golf\s+shot\s+challenge\b/i,
+  /\bcomplete\s+silence\s+(golf\s+)?challenge\b/i,
 ];
 
 // ============================================================================
