@@ -204,6 +204,15 @@ const HARD_SKIP_PATTERNS: RegExp[] = [
   // and similar. "The Story of [person]" is sit-down storytelling, not a round.
   /\bthe story of\b/i,
   /\bvs\.?\s+episode\s+\d+\b/i,
+
+  // Tournament broadcast / commentary formats — most often No Laying Up
+  // covering the AT&T Pebble Beach Pro-Am, U.S. Open, etc. They're on-site
+  // at the host course but commenting on pro play, not playing themselves.
+  /\blive (at|from) (the )?\b/i,
+  /\b(killhouse|kill\s*house)\b/i,
+  /\brange show\b/i,
+  /\ba bunch of questions\b/i,
+  /\b(pro[\s-]?am|tournament|championship) (recap|preview|coverage|breakdown)\b/i,
 ];
 
 // ============================================================================
