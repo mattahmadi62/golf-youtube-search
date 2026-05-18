@@ -256,6 +256,41 @@ const HARD_SKIP_PATTERNS: RegExp[] = [
   // Random / bizarre matchup formats explicitly framed as challenges
   /\brandom\s+golf\s+shot\s+challenge\b/i,
   /\bcomplete\s+silence\s+(golf\s+)?challenge\b/i,
+
+  // Comedy-swing / weird-grip gimmicks
+  /\bhappy\s+gilmore\b/i,
+  /\bcross\s*-?\s*hand(ed)?\b/i,
+  // Broken / damaged single clubs
+  /\bbroken\s+(driver|3\s*wood|wood|iron|wedge|putter|club)\b/i,
+  /\bwith\s+(a|an)\s+broken\b/i,
+  // "N degree driver" — radical-loft modified clubs (e.g. "3 Degree DRIVER")
+  /\b\d+\s*(degree|deg)\s+(driver|wedge|iron|3\s*wood|fairway)\b/i,
+  // Modified balls (duct tape, wrapped, sand-paper balls)
+  /\b(duct\s*tape|sand\s*paper|painted)\s+(golf\s+)?balls?\b/i,
+  /\bdoctored\s+(clubs?|balls?)\b/i,
+  // Ball/club doping framing
+  /\bspin\s+doctor\b/i,
+  /\billegal\s+substance\b/i,
+  /\b(makes?|making)\s+the\s+ball\s+(fly\s+)?(straight|spin|stop)\b/i,
+  // Pan / frying pan / weird object as a club
+  /\bwith\s+(a|an)\s+(pan|frying\s+pan|hockey\s+stick|broom|baseball\s+bat|tennis\s+racket|shovel)\b/i,
+  // Holiday-themed challenges
+  /\bchristmas\s+golf\s+(challenge|match)\b/i,
+  /\bholiday\s+(golf\s+)?challenge\b/i,
+  // "$N vs $N" match (money gimmick — implies challenge format with extreme price spread)
+  /\$\d+\s+vs\.?\s+\$\d+\b/i,
+  // "Swap clubs" / "club swap" gimmicks
+  /\b(swap(ped|ping)?|swap)\s+(golf\s+)?clubs?\b/i,
+  /\b(my\s+)?(girlfriend|boyfriend|wife|husband|dog|kid|baby|cat)\s+(picks?|chose|chooses?)\s+(my|our|the)\s+(golf\s+)?clubs?\b/i,
+  // Equipment-showcase framing (forgiving / longest / etc. clubs)
+  /\bmost\s+forgiving\s+(golf\s+)?clubs?\b/i,
+  /\blongest\s+(golf\s+)?clubs?\b/i,
+  // "w/ N clubs" or "with N clubs only" framing
+  /\bw\/\s*\d+\s+clubs?\b/i,
+  // "Restarted golf career on $N budget" / similar pursuit-gimmick framing
+  /\brestarted\s+(my|our)\s+golf\s+career/i,
+  // "Bought my first club" / equipment-acquisition videos
+  /\b(bought|got)\s+my\s+first\s+(golf\s+)?(clubs?|driver|wedge|putter|iron)\b/i,
 ];
 
 // ============================================================================
