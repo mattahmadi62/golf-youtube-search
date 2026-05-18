@@ -370,7 +370,7 @@ export default async function Home() {
           <section id="channels" className="mx-auto max-w-6xl px-6 py-20">
             <SectionLabel>The roster</SectionLabel>
             <h2 className="mt-3 max-w-3xl text-3xl leading-tight text-[#1F2A20] sm:text-4xl md:text-5xl">
-              Seven channels.{" "}
+              {counts.channels} channels.{" "}
               <em className="font-normal italic text-[#1F4D32]">
                 {counts.videos.toLocaleString()}
               </em>{" "}
