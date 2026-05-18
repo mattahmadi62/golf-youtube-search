@@ -213,6 +213,8 @@ const HARD_SKIP_PATTERNS: RegExp[] = [
   /\brange show\b/i,
   /\ba bunch of questions\b/i,
   /\bfilm room\b/i,
+  /\b(happy hour|office hours)\b/i,
+  /\bweeks?\s+in\s+the\s+life\b/i,
   /\b(pro[\s-]?am|tournament|championship) (recap|preview|coverage|breakdown)\b/i,
 ];
 
