@@ -90,6 +90,19 @@ export default async function CoursePage({ params }: PageProps) {
   const location = [course.state, course.country].filter(Boolean).join(", ");
   const isResort = children.length > 0;
 
+  // Defense against javascript:/data: URLs sneaking in from OSM tag data.
+  // Only render the website if it parses as a real http(s) URL.
+  const safeWebsite = (() => {
+    const raw = course.website;
+    if (!raw) return null;
+    try {
+      const u = new URL(raw);
+      return u.protocol === "http:" || u.protocol === "https:" ? raw : null;
+    } catch {
+      return null;
+    }
+  })();
+
   return (
     <main
       className="relative min-h-dvh overflow-x-hidden"
@@ -183,7 +196,7 @@ export default async function CoursePage({ params }: PageProps) {
             </p>
           )}
 
-          {(course.address || course.phone || course.website) && (
+          {(course.address || course.phone || safeWebsite) && (
             <dl
               className="mt-8 grid grid-cols-1 gap-x-8 gap-y-4 rounded-xl border border-[#1F4D32]/15 bg-white/60 p-5 text-sm sm:grid-cols-2"
               style={{ fontFamily: "var(--font-geist-sans)" }}
@@ -211,19 +224,19 @@ export default async function CoursePage({ params }: PageProps) {
                   </dd>
                 </div>
               )}
-              {course.website && (
+              {safeWebsite && (
                 <div>
                   <dt className="text-[10px] uppercase tracking-[0.18em] text-[#1F4D32]">
                     Website
                   </dt>
                   <dd className="mt-1 truncate">
                     <a
-                      href={course.website}
+                      href={safeWebsite}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[#1F4D32] underline-offset-4 hover:underline"
                     >
-                      {course.website
+                      {safeWebsite
                         .replace(/^https?:\/\//, "")
                         .replace(/\/$/, "")}
                       <span className="ml-1 inline-block translate-y-[-1px] text-xs">

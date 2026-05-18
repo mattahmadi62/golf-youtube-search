@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { MapCourse } from "@/components/CourseMap";
 import { MapShell } from "@/components/MapShell";
 import { SearchBox } from "@/components/SearchBox";
-import { Divider, SectionLabel } from "@/components/yardage";
+import { Divider, SectionLabel, TopographicPattern } from "@/components/yardage";
 import { db } from "@/db";
 import {
   channels,
@@ -164,36 +164,7 @@ export default async function Home() {
         fontFamily: "var(--font-fraunces)",
       }}
     >
-      {/* hairline topographic contour pattern */}
-      <svg
-        aria-hidden
-        className="pointer-events-none fixed inset-0 h-full w-full opacity-[0.045]"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <pattern id="topo-bg" width="160" height="80" patternUnits="userSpaceOnUse">
-            <path
-              d="M0,40 Q40,12 80,40 T160,40"
-              stroke="#1F4D32"
-              fill="none"
-              strokeWidth="0.6"
-            />
-            <path
-              d="M0,65 Q40,37 80,65 T160,65"
-              stroke="#1F4D32"
-              fill="none"
-              strokeWidth="0.6"
-            />
-            <path
-              d="M0,15 Q40,-12 80,15 T160,15"
-              stroke="#1F4D32"
-              fill="none"
-              strokeWidth="0.6"
-            />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#topo-bg)" />
-      </svg>
+      <TopographicPattern />
 
       <div className="relative">
         {/* ─── top bar ─── */}
@@ -509,9 +480,12 @@ export default async function Home() {
               <Link href="/map" className="hover:text-[#1F4D32]">
                 Course map
               </Link>
-              <Link href="/admin/review" className="hover:text-[#1F4D32]">
-                Review queue
-              </Link>
+              <a
+                href="mailto:feedback@caddiereel.com"
+                className="hover:text-[#1F4D32]"
+              >
+                Feedback
+              </a>
               <a
                 href="https://github.com/mattahmadi62/caddiereel"
                 target="_blank"
