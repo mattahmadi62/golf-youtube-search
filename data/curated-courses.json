@@ -179,7 +179,7 @@
   {"name": "Kingsbarns Golf Links", "aliases": ["Kingsbarns"], "slug": "kingsbarns-golf-links", "state": "Scotland", "country": "GB", "lat": 56.2961, "lng": -2.6606},
   {"name": "Dumbarnie Links", "aliases": ["Dumbarnie"], "slug": "dumbarnie-links", "state": "Scotland", "country": "GB", "lat": 56.2161, "lng": -2.9047},
   {"name": "Celtic Manor Resort", "aliases": ["Celtic Manor", "The Twenty Ten Course", "Twenty Ten Course"], "slug": "celtic-manor-resort", "state": "Wales", "country": "GB", "lat": 51.6128, "lng": -2.9756},
-  {"name": "Emirates Golf Club", "aliases": ["Emirates GC", "Majlis Course", "Faldo Course"], "slug": "emirates-golf-club", "state": "Dubai", "country": "AE", "lat": 25.0739, "lng": 55.1539},
+  {"name": "Emirates Golf Club", "aliases": ["Emirates GC", "Majlis Course"], "slug": "emirates-golf-club", "state": "Dubai", "country": "AE", "lat": 25.0739, "lng": 55.1539},
   {"name": "Abu Dhabi Golf Club", "aliases": ["Abu Dhabi GC", "National Course"], "slug": "abu-dhabi-golf-club", "state": "Abu Dhabi", "country": "AE", "lat": 24.4339, "lng": 54.5872},
   {"name": "Yas Links Abu Dhabi", "aliases": ["Yas Links"], "slug": "yas-links", "state": "Abu Dhabi", "country": "AE", "lat": 24.4633, "lng": 54.5908},
   {"name": "Saadiyat Beach Golf Club", "aliases": ["Saadiyat Beach"], "slug": "saadiyat-beach-golf-club", "state": "Abu Dhabi", "country": "AE", "lat": 24.5519, "lng": 54.4203},
@@ -209,5 +209,7 @@
   {"name": "Lake Merced Golf Club", "aliases": ["Lake Merced", "Lake Merced Country Club", "Lake Merced Golf and Country Club", "Lake Merced G&CC"], "slug": "lake-merced-golf-club", "state": "CA"},
   {"name": "Moorpark Country Club", "aliases": ["Moorpark", "Moorpark CC"], "slug": "moorpark-country-club", "state": "CA"},
   {"name": "Rustic Canyon Golf Course", "aliases": ["Rustic Canyon", "Rustic Canyon Moorpark"], "slug": "rustic-canyon-golf-course", "state": "CA"},
-  {"name": "Dynasty Golf Club", "aliases": ["Dynasty GC", "Dynasty Golf and Country Club", "Bang Len", "Dynasty Golf Bang Len"], "slug": "dynasty-golf-club", "state": "Nakhon Pathom", "country": "TH", "lat": 14.0181, "lng": 100.1839}
+  {"name": "Dynasty Golf Club", "aliases": ["Dynasty GC", "Dynasty Golf and Country Club", "Bang Len", "Dynasty Golf Bang Len"], "slug": "dynasty-golf-club", "state": "Nakhon Pathom", "country": "TH", "lat": 14.0181, "lng": 100.1839},
+  {"name": "Amendoeira Faldo Course", "aliases": ["Amendoeira Faldo", "Faldo Course Portugal", "Faldo Course at Amendoeira"], "slug": "amendoeira-faldo-course", "state": "Algarve", "country": "PT", "lat": 37.1492, "lng": -8.3422},
+  {"name": "Amendoeira O'Connor Jr Course", "aliases": ["Amendoeira OConnor", "O'Connor Course Portugal", "O'Connor Jr Course"], "slug": "amendoeira-oconnor-jr-course", "state": "Algarve", "country": "PT", "lat": 37.1492, "lng": -8.3422}
 ]
