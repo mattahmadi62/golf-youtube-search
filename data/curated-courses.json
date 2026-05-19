@@ -212,5 +212,6 @@
   {"name": "Dynasty Golf Club", "aliases": ["Dynasty GC", "Dynasty Golf and Country Club", "Bang Len", "Dynasty Golf Bang Len"], "slug": "dynasty-golf-club", "state": "Nakhon Pathom", "country": "TH", "lat": 14.0181, "lng": 100.1839},
   {"name": "Amendoeira Faldo Course", "aliases": ["Amendoeira Faldo", "Faldo Course Portugal", "Faldo Course at Amendoeira"], "slug": "amendoeira-faldo-course", "state": "Algarve", "country": "PT", "lat": 37.1492, "lng": -8.3422},
   {"name": "Amendoeira O'Connor Jr Course", "aliases": ["Amendoeira OConnor", "O'Connor Course Portugal", "O'Connor Jr Course"], "slug": "amendoeira-oconnor-jr-course", "state": "Algarve", "country": "PT", "lat": 37.1492, "lng": -8.3422},
-  {"name": "Soule Park Golf Course", "aliases": ["Soule Park", "Soule Park GC", "Soule"], "slug": "soule-park-golf-course", "state": "CA"}
+  {"name": "Soule Park Golf Course", "aliases": ["Soule Park", "Soule Park GC", "Soule"], "slug": "soule-park-golf-course", "state": "CA"},
+  {"name": "River Creek Park Golf Course", "aliases": ["River Creek", "River Creek Park", "River Creek Golf Course"], "slug": "river-creek-park-golf-course", "state": "TX"}
 ]
