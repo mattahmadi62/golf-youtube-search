@@ -363,7 +363,7 @@ export default async function CoursePage({ params }: PageProps) {
               style={{ fontFamily: "var(--font-geist-sans)" }}
             >
               <p className="text-xs text-[#3A3A33]">
-                Spot a video that wasn&apos;t actually filmed here?{" "}
+                Spot a video that wasn&apos;t actually filmed here? Email{" "}
                 <a
                   href={`mailto:feedback@caddiereel.com?subject=${encodeURIComponent(
                     `Bad match on ${course.name}`,
@@ -372,7 +372,7 @@ export default async function CoursePage({ params }: PageProps) {
                   )}`}
                   className="font-medium text-[#1F4D32] underline-offset-4 hover:underline"
                 >
-                  Report a bad match
+                  feedback@caddiereel.com
                 </a>
                 .
               </p>
