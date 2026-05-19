@@ -365,11 +365,13 @@ export default async function CoursePage({ params }: PageProps) {
               <p className="text-xs text-[#3A3A33]">
                 Spot a video that wasn&apos;t actually filmed here? Email{" "}
                 <a
-                  href={`mailto:feedback@caddiereel.com?subject=${encodeURIComponent(
+                  href={`https://mail.google.com/mail/?view=cm&fs=1&to=feedback@caddiereel.com&su=${encodeURIComponent(
                     `Bad match on ${course.name}`,
                   )}&body=${encodeURIComponent(
                     `Course: ${course.name}\nURL: https://caddiereel.com/course/${course.slug}\n\nWhich video is wrong (paste the YouTube link), and why:\n\n`,
                   )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="font-medium text-[#1F4D32] underline-offset-4 hover:underline"
                 >
                   feedback@caddiereel.com
