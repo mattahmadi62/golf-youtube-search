@@ -215,5 +215,6 @@
   {"name": "Soule Park Golf Course", "aliases": ["Soule Park", "Soule Park GC", "Soule"], "slug": "soule-park-golf-course", "state": "CA"},
   {"name": "River Creek Park Golf Course", "aliases": ["River Creek", "River Creek Park", "River Creek Golf Course"], "slug": "river-creek-park-golf-course", "state": "TX"},
   {"name": "Dove Canyon Country Club", "aliases": ["Dove Canyon", "Dove Canyon CC"], "slug": "dove-canyon-country-club", "state": "CA"},
-  {"name": "Wynn Golf Course", "aliases": ["Wynn", "Wynn Las Vegas", "Wynn Golf Club"], "slug": "wynn-golf-course", "state": "NV"}
+  {"name": "Wynn Golf Course", "aliases": ["Wynn", "Wynn Las Vegas", "Wynn Golf Club"], "slug": "wynn-golf-course", "state": "NV"},
+  {"name": "Colonial Country Club", "aliases": ["Colonial", "Colonial CC", "Colonial Fort Worth"], "slug": "colonial-country-club-fort-worth", "state": "TX"}
 ]
