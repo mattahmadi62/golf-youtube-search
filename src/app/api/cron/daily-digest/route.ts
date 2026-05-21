@@ -90,8 +90,11 @@ export async function GET(request: Request) {
 
     for (const email of emails) {
       const userSubs = byEmail.get(email)!;
-      const courseIds = userSubs.map((s) => s.course_id);
 
+      // Avoid passing JS arrays to neon-http (flattens single-element arrays
+      // to scalars on Vercel runtime, breaking `::uuid[]` casts). Instead,
+      // join through course_subscriptions directly — we get the same filter
+      // (only this user's confirmed subs) for free.
       let newMatches: MatchRow[];
       try {
         newMatches = (await sql`
@@ -106,14 +109,14 @@ export async function GET(request: Request) {
             c.slug              AS course_slug,
             c.state             AS course_state
           FROM video_courses vc
+          JOIN course_subscriptions cs
+            ON cs.course_id = vc.course_id
+            AND cs.email = ${email}
+            AND cs.confirmed_at IS NOT NULL
+            AND vc.created_at > cs.last_notified_at
           JOIN videos v ON v.id = vc.video_id
           LEFT JOIN channels ch ON ch.id = v.channel_id
           JOIN courses c ON c.id = vc.course_id
-          WHERE vc.course_id = ANY(${courseIds}::uuid[])
-            AND vc.created_at > (
-              SELECT last_notified_at FROM course_subscriptions
-              WHERE email = ${email} AND course_id = vc.course_id
-            )
           ORDER BY vc.course_id, vc.created_at DESC
         `) as MatchRow[];
       } catch (err) {
@@ -178,12 +181,15 @@ export async function GET(request: Request) {
       try {
         await sendDigestEmail({ to: email, unsubscribeAllUrl, groups });
         sent++;
-        const notifiedCourseIds = Array.from(groupsMap.keys());
-        await sql`
-          UPDATE course_subscriptions
-          SET last_notified_at = NOW()
-          WHERE email = ${email} AND course_id = ANY(${notifiedCourseIds}::uuid[])
-        `;
+        // Update each notified subscription individually — same reason as the
+        // SELECT above (no JS arrays to neon-http).
+        for (const courseId of groupsMap.keys()) {
+          await sql`
+            UPDATE course_subscriptions
+            SET last_notified_at = NOW()
+            WHERE email = ${email} AND course_id = ${courseId}
+          `;
+        }
       } catch (err) {
         errors.push(`${email} send: ${(err as Error).message}`);
       }
