@@ -216,5 +216,7 @@
   {"name": "River Creek Park Golf Course", "aliases": ["River Creek", "River Creek Park", "River Creek Golf Course"], "slug": "river-creek-park-golf-course", "state": "TX"},
   {"name": "Dove Canyon Country Club", "aliases": ["Dove Canyon", "Dove Canyon CC"], "slug": "dove-canyon-country-club", "state": "CA"},
   {"name": "Wynn Golf Course", "aliases": ["Wynn", "Wynn Las Vegas", "Wynn Golf Club"], "slug": "wynn-golf-course", "state": "NV"},
-  {"name": "Colonial Country Club", "aliases": ["Colonial", "Colonial CC", "Colonial Fort Worth"], "slug": "colonial-country-club-fort-worth", "state": "TX"}
+  {"name": "Colonial Country Club", "aliases": ["Colonial", "Colonial CC", "Colonial Fort Worth"], "slug": "colonial-country-club-fort-worth", "state": "TX"},
+  {"name": "Mountain Top Golf Course (Big Cedar)", "aliases": ["Mountain Top Big Cedar", "Mountain Top"], "slug": "mountain-top-big-cedar", "state": "MO", "country": "US", "parent": "big-cedar-lodge", "lat": 36.5681, "lng": -93.2486},
+  {"name": "Cliffhangers", "aliases": ["Tiger Woods Cliffhangers", "Cliffhanger", "Big Cedar Cliffhangers"], "slug": "cliffhangers", "state": "MO", "country": "US", "parent": "big-cedar-lodge", "lat": 36.5739, "lng": -93.2528}
 ]
