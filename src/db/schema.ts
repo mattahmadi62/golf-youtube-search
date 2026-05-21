@@ -127,6 +127,43 @@ export const extractionReviewQueue = pgTable(
   ],
 );
 
+/**
+ * Email subscriptions: anonymous email follow-on-course.
+ *
+ *   - confirmedAt is set when the user clicks the magic-link in their
+ *     confirmation email (double opt-in).
+ *   - lastNotifiedAt is the timestamp of the most-recent video_courses row
+ *     that we've already alerted this subscription about; the daily-digest
+ *     cron looks for video_courses.created_at > lastNotifiedAt.
+ *   - confirmationToken authenticates the confirm endpoint; unsubscribeToken
+ *     authenticates the unsubscribe endpoint. Both are opaque random strings.
+ */
+export const courseSubscriptions = pgTable(
+  "course_subscriptions",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    email: text("email").notNull(),
+    courseId: uuid("course_id")
+      .notNull()
+      .references(() => courses.id, { onDelete: "cascade" }),
+    confirmationToken: text("confirmation_token").notNull(),
+    unsubscribeToken: text("unsubscribe_token").notNull(),
+    confirmedAt: timestamp("confirmed_at", { withTimezone: true }),
+    lastNotifiedAt: timestamp("last_notified_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("course_subscriptions_email_course_unique").on(t.email, t.courseId),
+    uniqueIndex("course_subscriptions_confirmation_token_unique").on(t.confirmationToken),
+    uniqueIndex("course_subscriptions_unsubscribe_token_unique").on(t.unsubscribeToken),
+    index("course_subscriptions_email_idx").on(t.email),
+    index("course_subscriptions_course_id_idx").on(t.courseId),
+    index("course_subscriptions_confirmed_idx").on(t.confirmedAt),
+  ],
+);
+
 export type Course = typeof courses.$inferSelect;
 export type NewCourse = typeof courses.$inferInsert;
 export type Channel = typeof channels.$inferSelect;
@@ -135,3 +172,5 @@ export type Video = typeof videos.$inferSelect;
 export type NewVideo = typeof videos.$inferInsert;
 export type VideoCourse = typeof videoCourses.$inferSelect;
 export type NewVideoCourse = typeof videoCourses.$inferInsert;
+export type CourseSubscription = typeof courseSubscriptions.$inferSelect;
+export type NewCourseSubscription = typeof courseSubscriptions.$inferInsert;

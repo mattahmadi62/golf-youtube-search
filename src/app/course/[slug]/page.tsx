@@ -1,6 +1,7 @@
 import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { FollowCourse } from "@/components/FollowCourse";
 import { VideoList } from "@/components/VideoList";
 import {
   Divider,
@@ -303,6 +304,16 @@ export default async function CoursePage({ params }: PageProps) {
                   </li>
                 ))}
               </ul>
+            </section>
+          </>
+        )}
+
+        {/* ─── follow course (only show when there are indexed videos) ─── */}
+        {indexed.length > 0 && !isResort && (
+          <>
+            <Divider />
+            <section className="mx-auto max-w-4xl px-6 py-10">
+              <FollowCourse courseSlug={course.slug} courseName={course.name} />
             </section>
           </>
         )}
