@@ -218,5 +218,6 @@
   {"name": "Wynn Golf Course", "aliases": ["Wynn", "Wynn Las Vegas", "Wynn Golf Club"], "slug": "wynn-golf-course", "state": "NV"},
   {"name": "Colonial Country Club", "aliases": ["Colonial", "Colonial CC", "Colonial Fort Worth"], "slug": "colonial-country-club-fort-worth", "state": "TX"},
   {"name": "Mountain Top Golf Course (Big Cedar)", "aliases": ["Mountain Top Big Cedar", "Mountain Top"], "slug": "mountain-top-big-cedar", "state": "MO", "country": "US", "parent": "big-cedar-lodge", "lat": 36.5681, "lng": -93.2486},
-  {"name": "Cliffhangers", "aliases": ["Tiger Woods Cliffhangers", "Cliffhanger", "Big Cedar Cliffhangers"], "slug": "cliffhangers", "state": "MO", "country": "US", "parent": "big-cedar-lodge", "lat": 36.5739, "lng": -93.2528}
+  {"name": "Cliffhangers", "aliases": ["Tiger Woods Cliffhangers", "Cliffhanger", "Big Cedar Cliffhangers"], "slug": "cliffhangers", "state": "MO", "country": "US", "parent": "big-cedar-lodge", "lat": 36.5739, "lng": -93.2528},
+  {"name": "Tequesta Country Club", "aliases": ["Tequesta", "Tequesta CC", "Tequestra"], "slug": "tequesta-country-club", "state": "FL"}
 ]
